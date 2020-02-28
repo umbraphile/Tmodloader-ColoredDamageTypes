@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using System.Collections.Generic;
 using log4net;
+using System.IO;
 
 namespace _ColoredDamageTypes
 {
@@ -16,19 +17,9 @@ namespace _ColoredDamageTypes
 		public static Mod TremorMod;
 		public static bool ChangeTooltipColor = true;
 		public static bool ChangeDamageColor = true;
-		public static Mod instance;
-		public static bool debug = false;
-		public static bool debugtooltip = false;
+		public static ColoredDamageTypes instance;
 		public static string GithubUserName { get { return "PvtFudgepants"; } }
 		public static string GithubProjectName { get { return "tModLoader---Colored-Damage-Types"; } }
-		public static string ConfigFileRelativePath
-		{
-			get { return "Mod Configs/ColoredDamageTypes.json"; }
-		}
-		public static void ReloadConfigFromFile()
-		{
-			Config.Load(); // Define implementation to reload your mod's config data from file
-		}
 
 		public static Item[] ProjectileWeaponSpawns = new Item[1001];
 
@@ -38,11 +29,6 @@ namespace _ColoredDamageTypes
                 Autoload = true
             };
 			instance = this;
-		}
-		
-		public override void Load()
-		{
-			Config.Load();
 		}
 
 		public override void PostSetupContent()
@@ -55,6 +41,61 @@ namespace _ColoredDamageTypes
 		{
 			instance.Logger.InfoFormat("[ColoredDamageTypes] " + string.Format(message.ToString(), formatData), "ColoredDamageTypes");
 		}
+
+		//public override bool HijackGetData(ref byte messageType, ref BinaryReader reader, int playerNumber) {
+		//}
+		public void SendColorPacket(byte R, byte G, byte B, byte A, int damage, bool crit, int towho = -1, int exclude = -1) {
+			return;
+			/*if ( Main.netMode == NetmodeID.MultiplayerClient || Main.netMode == NetmodeID.Server) {
+				ModPacket packet = instance.GetPacket();
+
+				packet.Write(R);
+				packet.Write(G);
+				packet.Write(B);
+				packet.Write(A);
+				packet.Write(damage);
+				packet.Write(crit);
+				//packet.Write(recentid);
+				packet.Send(towho, exclude);
+			}
+			*/
+		}
+	/*
+		public override void HandlePacket(BinaryReader reader, int fromwho) {
+			//String msgType = reader.ReadString();
+			//switch ( msgType ) {
+			//	case "ChangedColor":
+			byte r = reader.ReadByte();
+			byte g = reader.ReadByte();
+			byte b = reader.ReadByte();
+			byte a = reader.ReadByte();
+			int dmg = reader.ReadInt32();
+			bool crit = reader.ReadBoolean();
+			//int recentid = reader.ReadInt32();
+
+			if ( Main.netMode == NetmodeID.Server ) {
+				SendColorPacket(r, g, b, a, dmg, crit);
+				return;
+			}
+
+			Color newcolor = new Color(r, g, b, a);
+
+			int recent = -1;
+			for ( int i = 99; i >= 0; i-- ) {
+				CombatText ctToCheck = Main.combatText[i];
+				if ( (ctToCheck.color == CombatText.OthersDamagedHostile || ctToCheck.color == CombatText.OthersDamagedHostileCrit) && ( (ctToCheck.lifeTime >= 41 && ctToCheck.lifeTime <= 60) || (ctToCheck.lifeTime >= 90 && ctToCheck.lifeTime <= 120) ) ) {
+					if ( ctToCheck.alpha == 1f) {
+						//recent = i;
+						Main.combatText[i].color = newcolor * 0.4f;
+						//break;
+					}
+				}
+			}
+
+			//if ( recent >= 0 ) Main.combatText[recent].color = newcolor * 0.4f;
+			//Main.combatText[recentid].color = newcolor;
+		}
 		
+	*/
 	}
 }

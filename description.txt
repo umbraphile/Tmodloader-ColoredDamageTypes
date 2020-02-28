@@ -13,7 +13,11 @@ Symphonic: Teal
 True: White/Gray
 
 Supports Tremor's damage type:
-Alchemic: Dark Purple
+Alchemic: Dark Pink
+
+v1.4.0
+-Finally got around to adding mod configuration through tmodloader.
+Old mod config files won't work, so unfortunately you'll need to redo your configs if you had changed anything.
 
 v1.3.0
 -Added support for in game config reloading through Hamstar's Helpers mod.

@@ -25,7 +25,7 @@ namespace _ColoredDamageTypes
 					Color newcolor = Color.White;
 					switch (tooltip.Name) {
 						case "Defense":
-							newcolor = Colors.TooltipDefense;
+							newcolor = ConfigUI.Instance.TooltipsInstance.TooltipDefense;
 							tooltip.overrideColor = newcolor;
 							break;
 						case "Damage":
@@ -33,34 +33,34 @@ namespace _ColoredDamageTypes
 
 							switch (dmgtype) {
 								case DamageTypes.Types.Melee:
-									newcolor = Colors.TooltipMelee;
+									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipMelee;
 									break;
 								case DamageTypes.Types.Ranged:
-									newcolor = Colors.TooltipRanged;
+									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipRanged;
 									break;
 								case DamageTypes.Types.Magic:
-									newcolor = Colors.TooltipMagic;
+									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipMagic;
 									break;
 								case DamageTypes.Types.Thrown:
-									newcolor = Colors.TooltipThrown;
+									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipThrowing;
 									break;
 								case DamageTypes.Types.Summon:
-									newcolor = Colors.TooltipSummon;
+									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipSummon;
 									break;
 								case DamageTypes.Types.Sentry:
-									newcolor = Colors.TooltipSentry;
+									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipSentry;
 									break;
 								case DamageTypes.Types.Radiant:
-									newcolor = Colors.TooltipRadiant;
+									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipRadiant;
 									break;
 								case DamageTypes.Types.Symphonic:
-									newcolor = Colors.TooltipSymphonic;
+									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipSymphonic;
 									break;
 								case DamageTypes.Types.True:
-									newcolor = Colors.TooltipTrue;
+									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipTrue;
 									break;
 								case DamageTypes.Types.Alchemic:
-									newcolor = Colors.TooltipAlchemic;
+									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipAlchemic;
 									break;
 								default:
 									break;

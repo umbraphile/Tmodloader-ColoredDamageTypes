@@ -16,6 +16,11 @@ namespace _ColoredDamageTypes
 			{"Solar Eruption", Types.Melee },
 			{"Ballista", Types.Sentry },
 			{"Pygmy", Types.Summon },
+			{"ThoriumMod.Projectiles.Minions.CreepingVineStaffPro", Types.Sentry },
+			{"ThoriumMod.Projectiles.Minions.MoltenProtectorStaffPro", Types.Sentry },
+			{"ThoriumMod.Projectiles.TorpedoPro2", Types.Ranged },
+			{"ThoriumMod.Projectiles.MeteorPlasmaDamage", Types.Summon },
+			{"ThoriumMod.Projectiles.GeyserSplash", Types.Magic },
 			{"ThoriumMod.Projectiles.ReactionNitrogen", Types.Thrown },
 			{"ThoriumMod.Projectiles.BlackDaggerPro",Types.Thrown },
 			{"CrystiliumMod.Projectiles.SapphireSpike", Types.Summon },
@@ -44,6 +49,9 @@ namespace _ColoredDamageTypes
 			{"SacredTools.Items.Weapons.SpearOfJustice", Types.Thrown },
 			{"SacredTools.Items.Weapons.TrueDecapitator", Types.Thrown },
 			{"SacredTools.Items.Weapons.Trispear", Types.Thrown },
+			{"ThoriumMod.Items.EnergyStorm.BoulderProbe", Types.Sentry },
+			{"ThoriumMod.Items.SummonItems.CreepingVineStaff", Types.Sentry },
+			{"ThoriumMod.Items.Donate.SilversBlade", Types.Sentry},
 			{"ThoriumMod.Items.EndofDays.Mjölnir", Types.True },
 			{"ThoriumMod.Items.Misc.Lantern", Types.True },
 			{"ThoriumMod.Items.NPCItems.HexWand", Types.True },
@@ -53,7 +61,8 @@ namespace _ColoredDamageTypes
 			{"Tremor.Items.LesserHealingFlack", Types.Alchemic },
 			{"Tremor.Items.BigHealingFlack", Types.Alchemic },
 			{"SpiritMod.Items.Weapon.Summon.GloomgusStaff", Types.Summon },
-			{"SpiritMod.Items.Weapon.Summon.BlueEyeStaff", Types.Sentry }
+			{"SpiritMod.Items.Weapon.Summon.BlueEyeStaff", Types.Sentry },
+			{"FargowiltasSouls.Items.Weapons.BossDrops.HiveStaff", Types.Sentry }
 		};
 
 
@@ -73,7 +82,7 @@ namespace _ColoredDamageTypes
 				if (ItemOverrideList.ContainsKey(mitemtype.ToString())) {
 					return ItemOverrideList[mitemtype.ToString()];
 				}
-				if (ColoredDamageTypes.debug && ColoredDamageTypes.debugtooltip) ColoredDamageTypes.Log("Item: "+mitemtype.ToString());
+				if (ConfigUI.Instance.DebugMode && ConfigUI.Instance.DebugModeTooltips) ColoredDamageTypes.Log("Item: "+mitemtype.ToString());
 			}
 
 			if (ColoredDamageTypes.ThoriumMod != null && mitem != null && mitem.mod == ColoredDamageTypes.ThoriumMod) {
@@ -116,7 +125,7 @@ namespace _ColoredDamageTypes
 				if (ProjectileOverrideList.ContainsKey(mprojtype.ToString())) {
 					return ProjectileOverrideList[mprojtype.ToString()];
 				}
-				if (ColoredDamageTypes.debug) ColoredDamageTypes.Log("Projectile: "+mprojtype.ToString());
+				if (ConfigUI.Instance.DebugMode) ColoredDamageTypes.Log("Projectile: "+mprojtype.ToString());
 			}
 
 			//ThoriumMod Check
