@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
 using System.Reflection;
+using Microsoft.Xna.Framework;
 
 namespace _ColoredDamageTypes
 {
@@ -16,6 +17,8 @@ namespace _ColoredDamageTypes
 			{"Solar Eruption", Types.Melee },
 			{"Ballista", Types.Sentry },
 			{"Pygmy", Types.Summon },
+			{"Consolaria.Projectiles.EasterEgg", Types.Ranged },
+			{"ThoriumMod.Projectiles.LifeLight", Types.Melee },
 			{"ThoriumMod.Projectiles.Minions.CreepingVineStaffPro", Types.Sentry },
 			{"ThoriumMod.Projectiles.Minions.MoltenProtectorStaffPro", Types.Sentry },
 			{"ThoriumMod.Projectiles.TorpedoPro2", Types.Ranged },
@@ -45,6 +48,7 @@ namespace _ColoredDamageTypes
 		};
 
 		public static Dictionary<string, Types> ItemOverrideList = new Dictionary<string, Types>() {
+			{"SacredTools.Items.Weapons.Pumpkin.MoodSummon", Types.Sentry },
 			{"SacredTools.Items.Weapons.Featherstorm", Types.Thrown },
 			{"SacredTools.Items.Weapons.SpearOfJustice", Types.Thrown },
 			{"SacredTools.Items.Weapons.TrueDecapitator", Types.Thrown },
@@ -212,5 +216,44 @@ namespace _ColoredDamageTypes
 		}
 
 
+		public static Color CheckDamageColor(DamageTypes.Types dmgtype, bool crit) {
+			Color newcolor;
+			switch ( dmgtype ) {
+				case DamageTypes.Types.Melee:
+					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageMelee : ConfigUI.Instance.DamageInstance.DamageMelee;
+					break;
+				case DamageTypes.Types.Ranged:
+					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageRanged : ConfigUI.Instance.DamageInstance.DamageRanged;
+					break;
+				case DamageTypes.Types.Magic:
+					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageMagic : ConfigUI.Instance.DamageInstance.DamageMagic;
+					break;
+				case DamageTypes.Types.Thrown:
+					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageThrowing : ConfigUI.Instance.DamageInstance.DamageThrowing;
+					break;
+				case DamageTypes.Types.Summon:
+					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageSummon : ConfigUI.Instance.DamageInstance.DamageSummon;
+					break;
+				case DamageTypes.Types.Sentry:
+					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageSentry : ConfigUI.Instance.DamageInstance.DamageSentry;
+					break;
+				case DamageTypes.Types.Radiant:
+					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageRadiant : ConfigUI.Instance.DamageInstance.DamageRadiant;
+					break;
+				case DamageTypes.Types.Symphonic:
+					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageSymphonic : ConfigUI.Instance.DamageInstance.DamageSymphonic;
+					break;
+				case DamageTypes.Types.True:
+					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageTrue : ConfigUI.Instance.DamageInstance.DamageTrue;
+					break;
+				case DamageTypes.Types.Alchemic:
+					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageAlchemic : ConfigUI.Instance.DamageInstance.DamageAlchemic;
+					break;
+				default:
+					newcolor = new Color(0, 0, 0, 0);
+					break;
+			}
+			return newcolor;
+		}
 	}
 }

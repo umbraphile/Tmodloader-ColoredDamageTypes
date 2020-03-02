@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -16,9 +15,7 @@ namespace _ColoredDamageTypes
 		{
 			UpdateToolTips(item, tooltips);
 		}
-
-		public async void UpdateToolTips(Item item, List<TooltipLine> tooltips) {
-			await Task.Delay(0);
+		public void UpdateToolTips(Item item, List<TooltipLine> tooltips) {
 			if (ConfigUI.Instance.ChangeTooltipColor) {
 				foreach (TooltipLine tooltip in tooltips) {
 					//Main.NewText(tooltip.Name+": "+tooltip.text);
