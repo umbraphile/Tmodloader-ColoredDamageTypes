@@ -16,13 +16,13 @@ namespace _ColoredDamageTypes
 			UpdateToolTips(item, tooltips);
 		}
 		public void UpdateToolTips(Item item, List<TooltipLine> tooltips) {
-			if (ConfigUI.Instance.ChangeTooltipColor) {
+			if ( Config.Instance.ChangeTooltipColor) {
 				foreach (TooltipLine tooltip in tooltips) {
 					//Main.NewText(tooltip.Name+": "+tooltip.text);
 					Color newcolor = Color.White;
 					switch (tooltip.Name) {
 						case "Defense":
-							newcolor = ConfigUI.Instance.TooltipsInstance.TooltipDefense;
+							newcolor = TooltipsConfig.Instance.BaseTT.TooltipDefense;
 							tooltip.overrideColor = newcolor;
 							break;
 						case "Damage":
@@ -30,34 +30,34 @@ namespace _ColoredDamageTypes
 
 							switch (dmgtype) {
 								case DamageTypes.Types.Melee:
-									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipMelee;
+									newcolor = TooltipsConfig.Instance.BaseTT.TooltipMelee;
 									break;
 								case DamageTypes.Types.Ranged:
-									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipRanged;
+									newcolor = TooltipsConfig.Instance.BaseTT.TooltipRanged;
 									break;
 								case DamageTypes.Types.Magic:
-									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipMagic;
+									newcolor = TooltipsConfig.Instance.BaseTT.TooltipMagic;
 									break;
 								case DamageTypes.Types.Thrown:
-									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipThrowing;
+									newcolor = TooltipsConfig.Instance.BaseTT.TooltipThrowing;
 									break;
 								case DamageTypes.Types.Summon:
-									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipSummon;
+									newcolor = TooltipsConfig.Instance.BaseTT.TooltipSummon;
 									break;
 								case DamageTypes.Types.Sentry:
-									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipSentry;
+									newcolor = TooltipsConfig.Instance.BaseTT.TooltipSentry;
 									break;
 								case DamageTypes.Types.Radiant:
-									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipRadiant;
+									newcolor = TooltipsConfig.Instance.ThoriumTT.TooltipRadiant;
 									break;
 								case DamageTypes.Types.Symphonic:
-									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipSymphonic;
+									newcolor = TooltipsConfig.Instance.ThoriumTT.TooltipSymphonic;
 									break;
 								case DamageTypes.Types.True:
-									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipTrue;
+									newcolor = TooltipsConfig.Instance.ThoriumTT.TooltipTrue;
 									break;
 								case DamageTypes.Types.Alchemic:
-									newcolor = ConfigUI.Instance.TooltipsInstance.TooltipAlchemic;
+									newcolor = TooltipsConfig.Instance.TremorTT.TooltipAlchemic;
 									break;
 								default:
 									break;

@@ -86,7 +86,7 @@ namespace _ColoredDamageTypes
 				if (ItemOverrideList.ContainsKey(mitemtype.ToString())) {
 					return ItemOverrideList[mitemtype.ToString()];
 				}
-				if (ConfigUI.Instance.DebugMode && ConfigUI.Instance.DebugModeTooltips) ColoredDamageTypes.Log("Item: "+mitemtype.ToString());
+				if (Config.Instance.DebugMode && Config.Instance.DebugModeTooltips) ColoredDamageTypes.Log("Item: "+mitemtype.ToString());
 			}
 
 			if (ColoredDamageTypes.ThoriumMod != null && mitem != null && mitem.mod == ColoredDamageTypes.ThoriumMod) {
@@ -129,7 +129,7 @@ namespace _ColoredDamageTypes
 				if (ProjectileOverrideList.ContainsKey(mprojtype.ToString())) {
 					return ProjectileOverrideList[mprojtype.ToString()];
 				}
-				if (ConfigUI.Instance.DebugMode) ColoredDamageTypes.Log("Projectile: "+mprojtype.ToString());
+				if (Config.Instance.DebugMode) ColoredDamageTypes.Log("Projectile: "+mprojtype.ToString());
 			}
 
 			//ThoriumMod Check
@@ -216,41 +216,44 @@ namespace _ColoredDamageTypes
 		}
 
 
-		public static Color CheckDamageColor(DamageTypes.Types dmgtype, bool crit) {
+		public static Color CheckDamageColor(Types dmgtype, bool crit) {
 			Color newcolor;
 			switch ( dmgtype ) {
-				case DamageTypes.Types.Melee:
-					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageMelee : ConfigUI.Instance.DamageInstance.DamageMelee;
+				case Types.Melee:
+					newcolor = crit ? DamageConfig.Instance.BaseDmg.MeleeDmg.MeleeDamageCrit : DamageConfig.Instance.BaseDmg.MeleeDmg.MeleeDamage;
 					break;
-				case DamageTypes.Types.Ranged:
-					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageRanged : ConfigUI.Instance.DamageInstance.DamageRanged;
+				case Types.Ranged:
+					newcolor = crit ? DamageConfig.Instance.BaseDmg.RangedDmg.RangedDamageCrit : DamageConfig.Instance.BaseDmg.RangedDmg.RangedDamage;
 					break;
-				case DamageTypes.Types.Magic:
-					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageMagic : ConfigUI.Instance.DamageInstance.DamageMagic;
+				case Types.Magic:
+					newcolor = crit ? DamageConfig.Instance.BaseDmg.MagicDmg.MagicDamageCrit : DamageConfig.Instance.BaseDmg.MagicDmg.MagicDamage;
 					break;
-				case DamageTypes.Types.Thrown:
-					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageThrowing : ConfigUI.Instance.DamageInstance.DamageThrowing;
+				case Types.Thrown:
+					newcolor = crit ? DamageConfig.Instance.BaseDmg.ThrowingDmg.ThrowingDamageCrit : DamageConfig.Instance.BaseDmg.ThrowingDmg.ThrowingDamage;
 					break;
-				case DamageTypes.Types.Summon:
-					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageSummon : ConfigUI.Instance.DamageInstance.DamageSummon;
+				case Types.Summon:
+					newcolor = crit ? DamageConfig.Instance.BaseDmg.SummonDmg.SummonDamageCrit : DamageConfig.Instance.BaseDmg.SummonDmg.SummonDamage;
 					break;
-				case DamageTypes.Types.Sentry:
-					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageSentry : ConfigUI.Instance.DamageInstance.DamageSentry;
+				case Types.Sentry:
+					newcolor = crit ? DamageConfig.Instance.BaseDmg.SentryDmg.SentryDamageCrit : DamageConfig.Instance.BaseDmg.SentryDmg.SentryDamage;
 					break;
-				case DamageTypes.Types.Radiant:
-					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageRadiant : ConfigUI.Instance.DamageInstance.DamageRadiant;
+				case Types.Radiant:
+					newcolor = crit ? DamageConfig.Instance.ThoriumDmg.RadiantDmg.RadiantDamageCrit : DamageConfig.Instance.ThoriumDmg.RadiantDmg.RadiantDamage;
 					break;
-				case DamageTypes.Types.Symphonic:
-					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageSymphonic : ConfigUI.Instance.DamageInstance.DamageSymphonic;
+				case Types.Symphonic:
+					newcolor = crit ? DamageConfig.Instance.ThoriumDmg.SymphonicDmg.SymphonicDamageCrit : DamageConfig.Instance.ThoriumDmg.SymphonicDmg.SymphonicDamage;
 					break;
-				case DamageTypes.Types.True:
-					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageTrue : ConfigUI.Instance.DamageInstance.DamageTrue;
+				case Types.True:
+					newcolor = crit ? DamageConfig.Instance.ThoriumDmg.TrueDmg.TrueDamageCrit : DamageConfig.Instance.ThoriumDmg.TrueDmg.TrueDamage;
 					break;
-				case DamageTypes.Types.Alchemic:
-					newcolor = crit ? ConfigUI.Instance.DamageInstance.CritDamageAlchemic : ConfigUI.Instance.DamageInstance.DamageAlchemic;
+				case Types.Alchemic:
+					newcolor = crit ? DamageConfig.Instance.TremorDmg.AlchemicDmg.AlchemicDamageCrit : DamageConfig.Instance.TremorDmg.AlchemicDmg.AlchemicDamage;
+					break;
+				case Types.Unknown:
+					newcolor = crit ? CombatText.DamagedHostileCrit : CombatText.DamagedHostile;
 					break;
 				default:
-					newcolor = new Color(0, 0, 0, 0);
+					newcolor = crit ? CombatText.DamagedHostileCrit : CombatText.DamagedHostile;
 					break;
 			}
 			return newcolor;

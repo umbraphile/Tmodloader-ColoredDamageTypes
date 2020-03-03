@@ -20,7 +20,7 @@ namespace _ColoredDamageTypes
 
 		public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
 		{
-			if (!ConfigUI.Instance.ChangeDamageColor) return;
+			if (!Config.Instance.ChangeDamageColor) return;
 
 			int recent = -1;
 			for (int i = 99; i >= 0; i--) {
@@ -39,7 +39,7 @@ namespace _ColoredDamageTypes
 				Color newcolor;
 				DamageTypes.Types dmgtype = DamageTypes.GetType(item);
 
-				if(ConfigUI.Instance.DebugMode) ColoredDamageTypes.Log("HitByItem: "+damage+item.Name + "/" + item.type + ": " + item.shoot+" "+ dmgtype.ToString());
+				if(Config.Instance.DebugMode) ColoredDamageTypes.Log("HitByItem: "+damage+item.Name + "/" + item.type + ": " + item.shoot+" "+ dmgtype.ToString());
 
 				newcolor = DamageTypes.CheckDamageColor(dmgtype, crit);
 
@@ -50,7 +50,7 @@ namespace _ColoredDamageTypes
 		public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
 		{
 
-			if (!ConfigUI.Instance.ChangeDamageColor) return;
+			if (!Config.Instance.ChangeDamageColor) return;
 
 			int recent = -1;
 			for (int i = 99; i >= 0; i--) {
@@ -69,7 +69,7 @@ namespace _ColoredDamageTypes
 				Color newcolor;
 				DamageTypes.Types dmgtype = DamageTypes.GetType(projectile);
 
-				if (ConfigUI.Instance.DebugMode) ColoredDamageTypes.Log("HitByProjectile: " + damage+" "+projectile.Name+"/"+projectile.type+": "+dmgtype.ToString());
+				if ( Config.Instance.DebugMode) ColoredDamageTypes.Log("HitByProjectile: " + damage+" "+projectile.Name+"/"+projectile.type+": "+dmgtype.ToString());
 
 				newcolor = DamageTypes.CheckDamageColor(dmgtype, crit);
 
