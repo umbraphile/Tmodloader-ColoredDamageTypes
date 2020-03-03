@@ -15,6 +15,10 @@ True: White/Gray
 Supports Tremor's damage type:
 Alchemic: Dark Pink
 
+v1.5.0
+-Now works in multiplayer! Test it out and let me know if you run into any problems.
+-Remade the config menu again. Tried to make it a little easier to get through.
+
 v1.4.0
 -Finally got around to adding mod configuration through tmodloader.
 Old mod config files won't work, so unfortunately you'll need to redo your configs if you had changed anything.
