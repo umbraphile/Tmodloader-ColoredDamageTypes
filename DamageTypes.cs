@@ -29,6 +29,7 @@ namespace _ColoredDamageTypes
 			{"CrystiliumMod.Projectiles.SapphireSpike", Types.Summon },
 			{"SacredTools.Projectiles.SpearOfJusticeProj", Types.Thrown },
 			{"SacredTools.Projectiles.CrossProj", Types.Thrown },
+			{"SacredTools.Projectiles.Minions.Frostfield", Types.Sentry },
 			{"Fargowiltas.Projectiles.Minions.EaterBody", Types.Summon },
 			{"Fargowiltas.Projectiles.Minions.EaterTail", Types.Summon },
 			{"ThoriumMod.Projectiles.LanternFlame", Types.True },
@@ -48,6 +49,7 @@ namespace _ColoredDamageTypes
 		};
 
 		public static Dictionary<string, Types> ItemOverrideList = new Dictionary<string, Types>() {
+			{"SacredTools.Items.Weapons.Decree.FrostGlobeStaff", Types.Sentry },
 			{"SacredTools.Items.Weapons.Pumpkin.MoodSummon", Types.Sentry },
 			{"SacredTools.Items.Weapons.Featherstorm", Types.Thrown },
 			{"SacredTools.Items.Weapons.SpearOfJustice", Types.Thrown },
@@ -91,20 +93,27 @@ namespace _ColoredDamageTypes
 
 			if (ColoredDamageTypes.ThoriumMod != null && mitem != null && mitem.mod == ColoredDamageTypes.ThoriumMod) {
 				Type mitemType = mitem.GetType();
+				/*
+				 * ColoredDamageTypes.Log("---------------------------------------");
+				foreach ( FieldInfo f in mitemType.GetFields() ) {
+					ColoredDamageTypes.Log(f.Name + ": " + f.FieldType+": "+f.Attributes+": "+f.GetValue(mitem));
+				}
+				*/
 				var fieldRadiant = mitemType.GetField("radiant");
-				var fieldSymphonic = mitemType.GetField("symphonic");
+				var fieldSymphonic = mitemType.GetField("Empowerments");
 				var fieldThrowing = mitemType.GetField("throwing");
 				if (fieldRadiant != null && (bool)fieldRadiant.GetValue(mitem) == true) return Types.Radiant;
-				else if (fieldSymphonic != null && (bool)fieldSymphonic.GetValue(mitem) == true) return Types.Symphonic;
+				else if (fieldSymphonic != null) return Types.Symphonic;
 				else if (fieldThrowing != null && (bool)fieldThrowing.GetValue(mitem) == true) return Types.Thrown;
 			}
-
+			/*
 			if (ColoredDamageTypes.TremorMod != null && mitem != null && mitem.mod == ColoredDamageTypes.TremorMod) {
 				Type mitemType = mitem.GetType();
 				string mitemTypestr = mitemType.ToString();
 				bool isAlchemic = mitemTypestr.Contains("Alchemist.") || mitemTypestr.Contains("Alchemic.") || mitemTypestr.Contains("NovaPillar.");
 				if (mitemType != null && isAlchemic == true) return Types.Alchemic;
 			}
+			*/
 
 			if (item.melee && !item.magic && !item.thrown) return Types.Melee;
 			else if (item.ranged && !item.magic && !item.thrown) return Types.Ranged;
@@ -140,13 +149,14 @@ namespace _ColoredDamageTypes
 				else if (typestr.Contains("ThoriumMod.Projectiles.Bard")) return Types.Symphonic;
 				else if (typestr.Contains("ThoriumMod.Items.ThrownItems")) return Types.Thrown;
 			}
-
+			/*
 			if (ColoredDamageTypes.TremorMod != null && mproj != null && mproj.mod == ColoredDamageTypes.TremorMod) {
 				Type mprojType = mproj.GetType();
 				string mitemTypestr = mprojType.ToString();
 				bool isAlchemic = mitemTypestr.Contains("Alchemist.") || mitemTypestr.Contains("Alchemic.") || mitemTypestr.Contains("NovaPillar.");
 				if (mprojType != null && isAlchemic == true) return Types.Alchemic;
 			}
+			*/
 
 			Item item = null;
 			Item selecteditem = Main.player[projectile.owner].inventory[Main.player[projectile.owner].selectedItem];
@@ -246,9 +256,11 @@ namespace _ColoredDamageTypes
 				case Types.True:
 					newcolor = crit ? DamageConfig.Instance.ThoriumDmg.TrueDmg.TrueDamageCrit : DamageConfig.Instance.ThoriumDmg.TrueDmg.TrueDamage;
 					break;
+				/*
 				case Types.Alchemic:
 					newcolor = crit ? DamageConfig.Instance.TremorDmg.AlchemicDmg.AlchemicDamageCrit : DamageConfig.Instance.TremorDmg.AlchemicDmg.AlchemicDamage;
 					break;
+				*/
 				case Types.Unknown:
 					newcolor = crit ? CombatText.DamagedHostileCrit : CombatText.DamagedHostile;
 					break;

@@ -15,7 +15,7 @@ namespace _ColoredDamageTypes
 	class ColoredDamageTypes : Mod
 	{
         public static Mod ThoriumMod;
-		public static Mod TremorMod;
+		//public static Mod TremorMod;
 		public static bool ChangeTooltipColor = true;
 		public static bool ChangeDamageColor = true;
 		public static ColoredDamageTypes instance;
@@ -44,7 +44,7 @@ namespace _ColoredDamageTypes
 		public override void PostSetupContent()
 		{
 			ThoriumMod = ModLoader.GetMod("ThoriumMod");
-			TremorMod = ModLoader.GetMod("Tremor");
+			//TremorMod = ModLoader.GetMod("Tremor");
 		}
 
 		public static void Log(object message, params object[] formatData)

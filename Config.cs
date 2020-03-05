@@ -112,6 +112,7 @@ namespace _ColoredDamageTypes
 			public Color TooltipTrue = new Color(170, 170, 170, 255);
 		}
 
+		/*
 		[Label("[c/9f2284:Tremor]")]
 		public Tremor TremorTT = new Tremor();
 		public class Tremor {
@@ -121,6 +122,7 @@ namespace _ColoredDamageTypes
 			[DefaultValue(typeof(Color), "190, 90, 190, 255")]
 			public Color TooltipAlchemic = new Color(190, 90, 190, 255);
 		}
+		*/
 	}
 	class DamageConfig : ModConfig	{
 		public override ConfigScope Mode => ConfigScope.ClientSide;
@@ -286,6 +288,7 @@ namespace _ColoredDamageTypes
 				public Color TrueDamageCrit = new Color(255, 255, 255, 255);
 			}
 		}
+		/*
 		[Label("[c/9f2284:Tremor]")]
 		public Tremor TremorDmg = new Tremor();
 		public class Tremor
@@ -307,6 +310,7 @@ namespace _ColoredDamageTypes
 				public Color AlchemicDamageCrit = new Color(180, 30, 190, 255);
 			}
 		}
+		*/
 
 	}
 

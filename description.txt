@@ -1,4 +1,5 @@
 Colored damage types changes the tooltip text of weapons to be colored, so that it's easier to quickly tell what kind of damage the weapon deals while scrolling through your inventory.
+It also changes the color of the damage text that pops up when you deal damage to enemies.
 
 Melee: Red
 Ranged: Green

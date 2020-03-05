@@ -10,7 +10,6 @@ namespace _ColoredDamageTypes
 {
 	public class ItemChanges : GlobalItem
 	{
-
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
 			UpdateToolTips(item, tooltips);
@@ -19,15 +18,15 @@ namespace _ColoredDamageTypes
 			if ( Config.Instance.ChangeTooltipColor) {
 				foreach (TooltipLine tooltip in tooltips) {
 					//Main.NewText(tooltip.Name+": "+tooltip.text);
+					//ColoredDamageTypes.Log(tooltip.Name + ": " + tooltip.mod+": "+": "+tooltip.text);
 					Color newcolor = Color.White;
 					switch (tooltip.Name) {
 						case "Defense":
 							newcolor = TooltipsConfig.Instance.BaseTT.TooltipDefense;
-							tooltip.overrideColor = newcolor;
 							break;
 						case "Damage":
 							DamageTypes.Types dmgtype = DamageTypes.GetType(item);
-
+							//Main.NewText("its damage");
 							switch (dmgtype) {
 								case DamageTypes.Types.Melee:
 									newcolor = TooltipsConfig.Instance.BaseTT.TooltipMelee;
@@ -56,15 +55,17 @@ namespace _ColoredDamageTypes
 								case DamageTypes.Types.True:
 									newcolor = TooltipsConfig.Instance.ThoriumTT.TooltipTrue;
 									break;
+								/*
 								case DamageTypes.Types.Alchemic:
 									newcolor = TooltipsConfig.Instance.TremorTT.TooltipAlchemic;
 									break;
+								*/
 								default:
 									break;
 							}
-							if (newcolor != Color.White) tooltip.overrideColor = newcolor;
 							break;
 					}
+					if ( newcolor != Color.White ) tooltip.overrideColor = newcolor;
 				}
 			}
 		}
