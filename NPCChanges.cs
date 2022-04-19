@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 using System.Reflection;
 using Terraria.ID;
 
-namespace _ColoredDamageTypes
+namespace ColoredDamageTypes
 {
 	class NPCChanges : GlobalNPC
 	{
@@ -44,6 +44,7 @@ namespace _ColoredDamageTypes
 				newcolor = DamageTypes.CheckDamageColor(dmgtype, crit);
 
 				Main.combatText[recent].color = newcolor;
+				Main.combatText[recent].active = Config.Instance.ShowDamageNumbers;
 			}
 		}
 
@@ -79,22 +80,23 @@ namespace _ColoredDamageTypes
 				//NetMessage.SendData
 				//ColoredDamageTypes.instance.SendColorPacket(newcolor.R, newcolor.G, newcolor.B, newcolor.A, damage, crit);
 				Main.combatText[recent].color = newcolor;
+				Main.combatText[recent].active = Config.Instance.ShowDamageNumbers;
 			}
 		}
 
 		public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit) {
-			ColoredDamageTypes.recentcolor_out = DamageTypes.GetType(item);
-			ColoredDamageTypes.recentdmg_out = damage;
-			ColoredDamageTypes.recentkb_out = knockback;
-			ColoredDamageTypes.recentcrit_out = (byte)(crit?1:0);
+			Netcode.recentcolor_out = DamageTypes.GetType(item);
+			Netcode.recentdmg_out = damage;
+			Netcode.recentkb_out = knockback;
+			Netcode.recentcrit_out = (byte)(crit?1:0);
 			
 		}
 
 		public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
-			ColoredDamageTypes.recentcolor_out = DamageTypes.GetType(projectile);
-			ColoredDamageTypes.recentdmg_out = damage;
-			ColoredDamageTypes.recentkb_out = knockback;
-			ColoredDamageTypes.recentcrit_out = (byte)(crit?1:0);
+			Netcode.recentcolor_out = DamageTypes.GetType(projectile);
+			Netcode.recentdmg_out = damage;
+			Netcode.recentkb_out = knockback;
+			Netcode.recentcrit_out = (byte)(crit?1:0);
 		}
 	}
 }

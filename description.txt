@@ -1,20 +1,29 @@
-Colored damage types changes the tooltip text of weapons to be colored, so that it's easier to quickly tell what kind of damage the weapon deals while scrolling through your inventory.
-It also changes the color of the damage text that pops up when you deal damage to enemies.
+Colored damage types changes the tooltip and damage text of weapons to be colored, so that it's easier to quickly tell what kind of damage the weapon deals at a glance.
 
 Melee: Red
 Ranged: Green
 Magic: Blue
-Thrown: Orange
+Thrown: Brown
 Summon: Pink
 Sentries: Light Purple
 
-Supports Thorium's damage types:
-Radiant: Yellow
-Symphonic: Teal
-True: White/Gray
+Cross-Mod Support for these damage types:
+Thorium: Radiant, Symphonic, True
+Calamity: Rogue
+Redemption: Druidic
+Enigma: Mystic
+DBZ: Ki
+Battle Rods: Fishing
+Clicker Class: Click
 
-Supports Tremor's damage type:
-Alchemic: Dark Pink
+v1.7.0
+-Updated to work with tModLoader 1.4 alpha. Let me know if there are any bugs, especially with the multiplayer as I didn't get to fully test that part.
+-The cross-mod support probably will NOT work even after the mods update. I'll need to see how they handle new damage types with the tModLoader changes.
+
+v1.6.0
+-Added cross-mod support for Calamity, Redemption, Enigma, DBZ, Battle Rods, and Clicker Class damage types.
+-Added toggle to disable damage numbers.
+-Added toggle to disable other players damage numbers in multiplayer.
 
 v1.5.0
 -Now works in multiplayer! Test it out and let me know if you run into any problems.
