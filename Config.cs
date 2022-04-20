@@ -9,12 +9,19 @@ using Terraria.ModLoader;
 
 namespace ColoredDamageTypes
 {
+
+
 	[Label("Config")]
 	class Config : ModConfig {
 		public override ConfigScope Mode => ConfigScope.ClientSide;
-		public static Config Instance = new Config();
+		public static Config Instance;
 
-		[Header("Toggles")]
+        /*public override void OnLoaded()
+        {
+			Instance = this;
+		}*/
+
+        [Header("Toggles")]
 
 		[Label("Show damage numbers")]
 		[Tooltip("Show/Hide all damage numbers")]
@@ -57,16 +64,80 @@ namespace ColoredDamageTypes
 		[DefaultValue(false)]
 		public bool DebugModeMultiplayer { get; set; }
 
+		[SeparatePage]
+		[Label("Modded Types")]
+		[DefaultDictionaryKeyValue("Mod Name")]
+		public Dictionary<string, CrossModConfig> CrossModConfigs = new Dictionary<string, CrossModConfig>();
+
+		[SeparatePage]
+		public class CrossModConfig
+		{
+			public string ModName;
+			public List<DamageType> DamageTypes { get; set; }
+			public CrossModConfig(List<DamageType> ldt, string mn=null)
+            {
+				DamageTypes = ldt;
+				if (mn != null) ModName = mn;
+			}
+			public override string ToString()
+			{
+				return $"{ModName}";
+			}
+			public class DamageType
+			{
+				[Label("Damage Type")]
+				public string type;
+				public DamageType(string dt)
+				{
+					type = dt;
+				}
+
+				[Tooltip("Color of the damage tooltip")]
+				[ColorNoAlpha]
+				[DefaultValue(typeof(Color), "155, 140, 200, 255")]
+				public Color TooltipColor = new Color(155, 140, 200, 255);
+
+				[Tooltip("Color of the damage")]
+				[ColorNoAlpha]
+				[DefaultValue(typeof(Color), "155, 140, 200, 255")]
+				public Color DamageColor = new Color(155, 140, 200, 255);
+
+				[Tooltip("Color of the crit damage")]
+				[ColorNoAlpha]
+				[DefaultValue(typeof(Color), "155, 140, 200, 255")]
+				public Color CritDamageColor = new Color(155, 140, 200, 255); 
+				
+				public override string ToString()
+				{
+					return $"{type}";
+				}
+			}
+		}
+
+		public Config()
+        {
+			if (ModLoader.TryGetMod("ExampleMod", out ColoredDamageTypes.ExampleMod))
+			{
+				List<CrossModConfig.DamageType> list = new List<CrossModConfig.DamageType>();
+				list.Add(new CrossModConfig.DamageType("Example Type"));
+				list.Add(new CrossModConfig.DamageType("Example Type 2"));
+				list.Add(new CrossModConfig.DamageType("Example Type 3"));
+				this.CrossModConfigs.Add("ExampleMod", new CrossModConfig(list, "ExampleMod"));
+			}
+		}
 	}
 	[Label("Tooltips Config")]
 	class TooltipsConfig : ModConfig {
 		public override ConfigScope Mode => ConfigScope.ClientSide;
+		public static Dictionary<string, Color> DamageColors = new Dictionary<string, Color>();
+		public Dictionary<string, int> dicct = new Dictionary<string, int>();
 		public static TooltipsConfig Instance = new TooltipsConfig();
 
 		[Header("Tooltip Colors")]
 		[Label("Vanilla")]
 		public Vanilla VanillaTT = new Vanilla();
 		public class Vanilla {
+
 			[Label("Defense")]
 			[Tooltip("Color of the defense tooltip on armor")]
 			[ColorNoAlpha]
@@ -108,6 +179,7 @@ namespace ColoredDamageTypes
 			[ColorNoAlpha]
 			[DefaultValue(typeof(Color), "150, 115, 255, 255")]
 			public Color TooltipSentry = new Color(150, 115, 255, 255);
+
 		}
 
 		[Label("[c/29dfff:Thorium]")]
@@ -518,6 +590,7 @@ namespace ColoredDamageTypes
 				public Color ClickDamageCrit = new Color(250, 230, 220, 255);
 			}
 		}
+
 
 		/*[Label("[c/0367ff:Orchid Mod]")]
 		public OrchidMod OrchidModDmg = new OrchidMod();

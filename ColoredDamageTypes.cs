@@ -22,6 +22,7 @@ namespace ColoredDamageTypes
 		public static Mod EsperClassMod;
 		public static Mod BattleRodsMod;
 		public static Mod ClickerMod;
+		public static Mod ExampleMod;
 		//public static Mod OrchidMod;
 
 		//public static Mod TremorMod;
@@ -41,7 +42,7 @@ namespace ColoredDamageTypes
 		public override void PostSetupContent()
 		{
 			ModLoader.TryGetMod("ThoriumMod", out ThoriumMod);
-			ModLoader.TryGetMod("Laugicality", out EnigmaMod);
+            ModLoader.TryGetMod("Laugicality", out EnigmaMod);
 			ModLoader.TryGetMod("Redemption", out RedemptionMod);
 			ModLoader.TryGetMod("CalamityMod", out CalamityMod);
 			ModLoader.TryGetMod("DBZMOD", out DbzMod);
