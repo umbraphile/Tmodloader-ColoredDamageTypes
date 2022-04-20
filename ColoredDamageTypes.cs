@@ -39,19 +39,6 @@ namespace ColoredDamageTypes
 			instance = this;
 		}
 
-        public override void PostSetupContent()
-		{
-			ModLoader.TryGetMod("ThoriumMod", out ThoriumMod);
-            ModLoader.TryGetMod("Laugicality", out EnigmaMod);
-			ModLoader.TryGetMod("Redemption", out RedemptionMod);
-			ModLoader.TryGetMod("CalamityMod", out CalamityMod);
-			ModLoader.TryGetMod("DBZMOD", out DbzMod);
-			ModLoader.TryGetMod("EsperClass", out EsperClassMod);
-			ModLoader.TryGetMod("UnuBattleRods", out BattleRodsMod);
-			ModLoader.TryGetMod("ClickerClass", out ClickerMod);
-			//OrchidMod = ModLoader.GetMod("OrchidMod");
-			//TremorMod = ModLoader.GetMod("Tremor");
-		}
 
 		public static void Log(object message, params object[] formatData)
 		{
@@ -70,7 +57,7 @@ namespace ColoredDamageTypes
 				packet.Close();
 			}
 			if (Main.netMode == NetmodeID.MultiplayerClient ) {
-				Netcode.recentcolor_in = (DamageTypes.Types)reader.ReadByte();
+				Netcode.recentcolor_in = reader.ReadByte();
 				Netcode.recentdmg_in = reader.ReadInt32();
 				Netcode.recentkb_in = reader.ReadSingle();
 				Netcode.recentcrit_in = reader.ReadByte();
@@ -84,9 +71,11 @@ namespace ColoredDamageTypes
             {
 				if(args[1] is Color ttcolor && args[2] is Color dmgcolor && args[3] is Color critdmgcolor)
                 {
-					//zCrossModConfig.DamageType dt = new zCrossModConfig.DamageType("Example", ttcolor, dmgcolor, critdmgcolor);
-					//zCrossModConfig.Current_CrossModDamageConfig.Add("Example", dt);
-					//zCrossModConfig.CrossModDamageConfig
+					string dcname = dc.ToString();
+					zCrossModConfig.DamageType dt = new zCrossModConfig.DamageType(dcname, ttcolor, dmgcolor, critdmgcolor);
+					zCrossModConfig.CrossModDamageConfig_Orig.Add(dcname, dt);
+
+					DamageTypes.DamageClasses.Add(dc);
                 }
             }
 

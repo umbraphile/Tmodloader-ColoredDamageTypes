@@ -5,7 +5,6 @@ using System.Diagnostics;
 using Terraria;
 using Terraria.ModLoader.Config;
 using Terraria.ModLoader;
-using System.Windows.Forms;
 
 
 namespace ColoredDamageTypes
@@ -237,13 +236,15 @@ namespace ColoredDamageTypes
 	class zCrossModConfig : ModConfig
 	{
 		public override ConfigScope Mode => ConfigScope.ClientSide;
-		//public static zCrossModConfig Instance = new zCrossModConfig();
+		public static zCrossModConfig Instance;
 
-		[Header("Mod Compatibility")]
+		[Header("Mod Compatibility\nIf you change a setting here, you will need to \"Restore Defaults\" if any new damage types are added after.")]
 		[Label("Colors and damage types that were added by other mods:")]
 		[DefaultDictionaryKeyValue("Mod Name")]
 
+
 		public Dictionary<string, zCrossModConfig.DamageType> CrossModDamageConfig = new Dictionary<string, zCrossModConfig.DamageType>();
+		public static Dictionary<string, zCrossModConfig.DamageType> CrossModDamageConfig_Orig = new Dictionary<string, zCrossModConfig.DamageType>();
 
 		public override string ToString()
 		{
@@ -251,19 +252,19 @@ namespace ColoredDamageTypes
 		}
 		public class DamageType
 		{
-			//[Label("Damage Type")]
+			[Label("Damage Type (For reference only)")]
+			[Tooltip("For reference only. Changing this will do nothing.")]
 			//public string type;
-			private string dtname = "";
+			public string dtname;
 			public DamageType(string s, Color defaulttt, Color defaultdmg, Color defaultcrit)
 			{
 				TooltipColor = defaulttt;
 				DamageColor = defaultdmg;
 				CritDamageColor = defaultcrit;
-				MessageBox.Show("\"" + s + "\"","aahh");
-				if (s != null)
+				if(s != null)
                 {
-					string[] splitstring = s.Split('.');
-					dtname = splitstring[splitstring.Length - 1]+"sadfdsafdsaf";
+					string[] ssplit = s.Split('.');
+					dtname = ssplit[ssplit.Length - 1];
 				}
 			}
 
@@ -282,40 +283,39 @@ namespace ColoredDamageTypes
 			[DefaultValue(typeof(Color), "155, 140, 200, 255")]
 			public Color CritDamageColor = new Color(155, 140, 200, 255);
 
-            public override string ToString()
-            {
-				return dtname;
-            }
 
         }
 
 		public zCrossModConfig()
 		{
-			string modname = "ExampleMod";
-			DamageClass dc = DamageClass.Summon;
-			if (ModLoader.TryGetMod(modname, out ColoredDamageTypes.ExampleMod))
-			{
-				Color ex1critcolor = new Color(155, 140, 0, 255);
-				Color ex1dmgcolor = new Color(155, 0, 200, 255);
-				Color ex1tooltipcolor = new Color(0, 140, 200, 255);
-				string dcname = dc.ToString();
+
+			CrossModDamageConfig = new Dictionary<string, DamageType>(CrossModDamageConfig_Orig);
+
+            /*string modname = "ExampleMod";
+            DamageClass dc = DamageClass.Summon;
+            if (ModLoader.TryGetMod(modname, out ColoredDamageTypes.ExampleMod))
+            {
+                Color ex1critcolor = new Color(155, 140, 0, 255);
+                Color ex1dmgcolor = new Color(155, 0, 200, 255);
+                Color ex1tooltipcolor = new Color(0, 140, 200, 255);
+                string dcname = dc.ToString();
 
 
-				string dcname2 = DamageClass.Magic.ToString();
+                string dcname2 = DamageClass.Magic.ToString();
 
-				List<zCrossModConfig.DamageType> typeslist;
-				/*if (!CrossModDamageConfig.ContainsKey(dcname))
-				{
-					CrossModDamageConfig[dcname] = new DamageType(dcname, ex1tooltipcolor, ex1dmgcolor, ex1critcolor);
-				}
-				if (!CrossModDamageConfig.ContainsKey(dcname2))
-				{
-					CrossModDamageConfig[dcname2] = new DamageType(dcname2, ex1tooltipcolor, ex1dmgcolor, ex1critcolor);
-				}*/
-				//typeslist.Add(new zCrossModConfig.DamageType(ex1type,ex1tooltipcolor,ex1dmgcolor,ex1critcolor));
-				//CrossModConfigs.Add("ExampleMod", new CrossModConfig(list));
-			}
-		}
+                List<zCrossModConfig.DamageType> typeslist;
+                if (!CrossModDamageConfig.ContainsKey(dcname))
+                {
+                    CrossModDamageConfig[dcname] = new DamageType(dcname, ex1tooltipcolor, ex1dmgcolor, ex1critcolor);
+                }
+                if (!CrossModDamageConfig.ContainsKey(dcname2))
+                {
+                    CrossModDamageConfig[dcname2] = new DamageType(dcname2, ex1tooltipcolor, ex1dmgcolor, ex1critcolor);
+                }
+                //typeslist.Add(new zCrossModConfig.DamageType(ex1type,ex1tooltipcolor,ex1dmgcolor,ex1critcolor));
+                //CrossModConfigs.Add("ExampleMod", new CrossModConfig(list));
+            }*/
+        }
 	}
 
 }

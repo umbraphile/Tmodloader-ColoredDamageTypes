@@ -15,8 +15,8 @@ namespace ColoredDamageTypes
     internal class Netcode : ModSystem
 	{
 
-		public static DamageTypes.Types recentcolor_in;
-		public static DamageTypes.Types recentcolor_out;
+		public static int recentcolor_in;
+		public static int recentcolor_out;
 		public static int recentdmg_in;
 		public static int recentdmg_out;
 		public static float recentkb_in;
@@ -77,7 +77,8 @@ namespace ColoredDamageTypes
 						}
 						if (recent > -1)
 						{
-							Main.combatText[recent].color = DamageTypes.CheckDamageColor(recentcolor_in, crit) * 0.4f;
+							//TODO: MAKE THIS READ THE RIGHT TYPE FOR NETCODE
+							//Main.combatText[recent].color = DamageTypes.CheckDamageColor(recentcolor_in, crit) * 0.4f;
 							Main.combatText[recent].active = Config.Instance.ShowMultiplayerDamageNumbers;
 						}
 						return true;

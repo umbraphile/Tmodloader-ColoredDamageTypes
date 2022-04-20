@@ -12,15 +12,15 @@ using Microsoft.Xna.Framework;
 namespace ColoredDamageTypes
 {
 	class DamageTypes {
-		public static Dictionary<string, Types> ProjectileOverrideList = new Dictionary<string, Types>() {
-			{"Solar Eruption", Types.Melee },
-			{"Ballista", Types.Sentry },
-			{"Pygmy", Types.Summon },
-			{"Baby Spider", Types.Sentry },
-			{"Molotov Fire", Types.Thrown },
-			{"UFO Ray", Types.Summon },
+		public static Dictionary<string, DamageClass> ProjectileOverrideList = new Dictionary<string, DamageClass>() {
+			{"Solar Eruption", DamageClass.Melee },
+			{"Ballista", ModContent.GetInstance<SentryClass>() },
+			{"Pygmy", DamageClass.Summon },
+			{"Baby Spider", ModContent.GetInstance<SentryClass>() },
+			{"Molotov Fire", DamageClass.Throwing },
+			{"UFO Ray", DamageClass.Summon }
 			//{"Influx Waver", Types.Melee },
-			{"SpiritMod.Projectiles.DonatorItems.FlambergeProjectile", Types.Melee },
+/*			{"SpiritMod.Projectiles.DonatorItems.FlambergeProjectile", Types.Melee },
 			{"QwertysRandomContent.Items.BladeBossItems.Imperious", Types.Summon },
 			{"AmuletOfManyMinions.Projectiles.Minions.SpiritGun.SpiritGunMinionBullet", Types.Summon },
 			{"AmuletOfManyMinions.Projectiles.Minions.CharredChimera.CharredChimeraMinionHead", Types.Summon },
@@ -96,16 +96,11 @@ namespace ColoredDamageTypes
 			{"ThoriumMod.Projectiles.MJPro", Types.True },
 			{"ThoriumMod.Projectiles.MJShock", Types.True },
 			{"ThoriumMod.Projectiles.ThorBoom", Types.True },
-			//{"Tremor.Ice.Items.FrostLiquidFlaskPro", Types.Alchemic },
-			//{"Tremor.Projectiles.WallOfShadowsBoom", Types.Alchemic },
-			//{"Tremor.Projectiles.PlaguePro", Types.Alchemic },
-			//{"Tremor.Projectiles.Dukado", Types.Alchemic },
-			//{"Tremor.Projectiles.WallOfShadowsFlask_Proj", Types.Alchemic },
-			{"SpiritMod.Projectiles.SadBeam", Types.Summon }
+			{"SpiritMod.Projectiles.SadBeam", Types.Summon }*/
 		};
 
-		public static Dictionary<string, Types> ItemOverrideList = new Dictionary<string, Types>() {
-			{"SpiritMod.Items.Weapon.Magic.ShadowSphere", Types.Sentry },
+		public static Dictionary<string, DamageClass> ItemOverrideList = new Dictionary<string, DamageClass>() {
+			/*{"SpiritMod.Items.Weapon.Magic.ShadowSphere", Types.Sentry },
 			{"ThoriumMod.Items.Tracker.IcyGaze", Types.True },
 			{"SacredTools.Items.Weapons.Decree.FrostGlobeStaff", Types.Sentry },
 			{"SacredTools.Items.Weapons.Pumpkin.MoodSummon", Types.Sentry },
@@ -134,114 +129,73 @@ namespace ColoredDamageTypes
 			//{"Tremor.Items.BigHealingFlack", Types.Alchemic },
 			{"SpiritMod.Items.Weapon.Summon.GloomgusStaff", Types.Summon },
 			{"SpiritMod.Items.Weapon.Summon.BlueEyeStaff", Types.Sentry },
-			{"FargowiltasSouls.Items.Weapons.BossDrops.HiveStaff", Types.Sentry }
-		}; 
+			{"FargowiltasSouls.Items.Weapons.BossDrops.HiveStaff", Types.Sentry }*/
+		};
 		
 		public static string[] ProjectilesBypassItemType = new string[] {"Bullet", "Bee", "XBone"};
 
 		public static List<DamageClass> DamageClasses = new List<DamageClass>();
-		public enum Types { Unknown, Melee, Ranged, Magic, Thrown, Summon, Sentry, Radiant, Symphonic, True, Mystic, Druidic, Rogue, Ki, Fishing, Click }
-		public static Types GetType(Item item) {
-			//ThoriumMod Check
+		/*public enum Types { Unknown, Melee, Ranged, Magic, Thrown, Summon, Sentry, Radiant, Symphonic, True, Mystic, Druidic, Rogue, Ki, Fishing, Click }*/
+		public static DamageClass GetType(Item item) {
+            //ThoriumMod Check
 
-			if ( ItemOverrideList.ContainsKey(item.Name) ) {
-				return ItemOverrideList[item.Name];
-			}
+            if (ItemOverrideList.ContainsKey(item.Name))
+            {
+                return ItemOverrideList[item.Name];
+            }
 
-			//item.DamageType
-			//item.CountsAsClass(ModContent.GetInstance<NecroDamageClass>());
-			ModItem mitem = item.ModItem;
+            ModItem mitem = item.ModItem;
 
-			if ( mitem != null ) {
-				Type mitemtype = mitem.GetType();
-				if ( ItemOverrideList.ContainsKey(mitemtype.ToString()) ) {
-					return ItemOverrideList[mitemtype.ToString()];
-				}
-				if ( Config.Instance.DebugMode && Config.Instance.DebugModeTooltips ) ColoredDamageTypes.Log("Item: " + mitemtype.ToString());
-			}
+            if (mitem != null)
+            {
+                Type mitemtype = mitem.GetType();
+                if (ItemOverrideList.ContainsKey(mitemtype.ToString()))
+                {
+                    return ItemOverrideList[mitemtype.ToString()];
+                }
+                if (Config.Instance.DebugMode && Config.Instance.DebugModeTooltips) ColoredDamageTypes.Log("Item: " + mitemtype.ToString());
+            }
 
-			if (Config.Instance.DebugMode && Config.Instance.DebugModeFields ) {
-				if(mitem == null ) {
-					ColoredDamageTypes.Log("---------------------------------------");
-					ColoredDamageTypes.Log(item.Name);
-					Type itemType = item.GetType();
-					foreach ( FieldInfo f in itemType.GetFields() ) {
-						try {
-							ColoredDamageTypes.Log(f.Name + ": " + f.FieldType + ": " + ": " + f.GetValue(mitem).ToString());
-						}
-						catch {
+            if (Config.Instance.DebugMode && Config.Instance.DebugModeFields)
+            {
+                if (mitem == null)
+                {
+                    ColoredDamageTypes.Log("---------------------------------------");
+                    ColoredDamageTypes.Log(item.Name);
+                    Type itemType = item.GetType();
+                    foreach (FieldInfo f in itemType.GetFields())
+                    {
+                        try
+                        {
+                            ColoredDamageTypes.Log(f.Name + ": " + f.FieldType + ": " + ": " + f.GetValue(mitem).ToString());
+                        }
+                        catch
+                        {
 
-						}
-					}
-				}
-				else {
-					ColoredDamageTypes.Log("---------------------------------------");
-					ColoredDamageTypes.Log(mitem.Name);
-					Type mitemType = mitem.GetType();
-					foreach ( FieldInfo f in mitemType.GetFields() ) {
-						try {
-							ColoredDamageTypes.Log(f.Name + ": " + f.FieldType + ": " + ": " + f.GetValue(mitem).ToString());
-						}
-						catch {
+                        }
+                    }
+                }
+                else
+                {
+                    ColoredDamageTypes.Log("---------------------------------------");
+                    ColoredDamageTypes.Log(mitem.Name);
+                    Type mitemType = mitem.GetType();
+                    foreach (FieldInfo f in mitemType.GetFields())
+                    {
+                        try
+                        {
+                            ColoredDamageTypes.Log(f.Name + ": " + f.FieldType + ": " + ": " + f.GetValue(mitem).ToString());
+                        }
+                        catch
+                        {
 
-						}
-					}
-				}
-			}
+                        }
+                    }
+                }
+            }
 
-			if ( ColoredDamageTypes.ThoriumMod != null && mitem != null && mitem.Mod == ColoredDamageTypes.ThoriumMod ) {
-				Type mitemType = mitem.GetType();
-				var fieldRadiant = mitemType.GetField("radiant");
-				var fieldSymphonic = mitemType.GetField("Empowerments");
-				var fieldThrowing = mitemType.GetField("throwing");
-				if ( fieldRadiant != null && (bool)fieldRadiant.GetValue(mitem) == true ) return Types.Radiant;
-				else if ( fieldSymphonic != null ) return Types.Symphonic;
-				else if ( fieldThrowing != null && (bool)fieldThrowing.GetValue(mitem) == true ) return Types.Thrown;
-			}
 
-			//EnigmaMod Check
-			if ( ColoredDamageTypes.EnigmaMod != null && mitem != null && mitem.Mod == ColoredDamageTypes.EnigmaMod ) {
-				Type mprojtype = mitem.GetType();
-				string typestr = mprojtype.ToString();
-				if ( typestr.Contains("Laugicality.Items.Weapons.Mystic") ) return Types.Mystic;
-			}
-
-			//RedemptionMod Check
-			if ( ColoredDamageTypes.RedemptionMod != null && mitem != null && mitem.Mod == ColoredDamageTypes.RedemptionMod ) {
-				Type mprojtype = mitem.GetType();
-				string typestr = mprojtype.ToString();
-				if ( typestr.Contains("Redemption.Items.DruidDamageClass") || typestr.Contains("Redemption.Projectiles.DruidProjectiles") ) return Types.Druidic;
-			}
-
-			//CalamityMod Check
-			if ( ColoredDamageTypes.CalamityMod != null && mitem != null && mitem.Mod == ColoredDamageTypes.CalamityMod ) {
-				Type mprojtype = mitem.GetType();
-				string typestr = mprojtype.ToString();
-				if ( typestr.Contains("CalamityMod.Items.Weapons.Rogue") || typestr.Contains("CalamityMod.Projectiles.Rogue") ) return Types.Rogue;
-			}
-
-			//DBZMod Check
-			if ( ColoredDamageTypes.DbzMod != null && mitem != null && mitem.Mod == ColoredDamageTypes.DbzMod ) {
-				Type mprojtype = mitem.GetType();
-				string typestr = mprojtype.ToString();
-				if ( typestr.Contains("DBZMOD.Projectiles") || (typestr.Contains("DBZMOD.Items.Weapons") && !typestr.Contains("Normal")) ) return Types.Ki;
-			}
-
-			//BattleRod Check
-			if ( ColoredDamageTypes.BattleRodsMod != null && mitem != null && mitem.Mod == ColoredDamageTypes.BattleRodsMod ) {
-				Type mprojtype = mitem.GetType();
-				string typestr = mprojtype.ToString();
-				if ( typestr.Contains("UnuBattleRods.Projectiles") || typestr.Contains("UnuBattleRods.Items.Rods") ) return Types.Fishing;
-			}
-
-			//Clicker Check
-			if ( ColoredDamageTypes.ClickerMod != null && mitem != null && mitem.Mod == ColoredDamageTypes.ClickerMod ) {
-				Type mprojtype = mitem.GetType();
-				string typestr = mprojtype.ToString();
-				if ( typestr.Contains("ClickerClass.Items.Weapons") || typestr.Contains("ClickerClass.Projectiles") ) return Types.Click;
-			}
-
-			/*//OrchidMod Check
+            /*//OrchidMod Check
 			if ( ColoredDamageTypes.OrchidMod != null && mitem != null && mitem.mod == ColoredDamageTypes.OrchidMod ) {
 				Type mprojtype = mitem.GetType();
 				string typestr = mprojtype.ToString();
@@ -250,7 +204,7 @@ namespace ColoredDamageTypes
 			*/
 
 
-			/*
+            /*
 			if (ColoredDamageTypes.TremorMod != null && mitem != null && mitem.mod == ColoredDamageTypes.TremorMod) {
 				Type mitemType = mitem.GetType();
 				string mitemTypestr = mitemType.ToString();
@@ -259,99 +213,43 @@ namespace ColoredDamageTypes
 			}
 			*/
 
-			if ( item.CountsAsClass(DamageClass.Melee) && !item.CountsAsClass(DamageClass.Magic) && !item.CountsAsClass(DamageClass.Throwing)) return Types.Melee;
-			else if ( item.CountsAsClass(DamageClass.Ranged) && !item.CountsAsClass(DamageClass.Magic) && !item.CountsAsClass(DamageClass.Throwing) ) return Types.Ranged;
-			else if ( item.CountsAsClass(DamageClass.Magic) ) return Types.Magic;
-			else if ( item.CountsAsClass(DamageClass.Throwing) ) return Types.Thrown;
-			else if ( item.sentry ) return Types.Sentry;
-			else if ( item.CountsAsClass(DamageClass.Summon) ) return Types.Summon;
+            if ( item.CountsAsClass(DamageClass.Melee) && !item.CountsAsClass(DamageClass.Magic) && !item.CountsAsClass(DamageClass.Throwing)) return DamageClass.Melee;
+			else if ( item.CountsAsClass(DamageClass.Ranged) && !item.CountsAsClass(DamageClass.Magic) && !item.CountsAsClass(DamageClass.Throwing) ) return DamageClass.Ranged;
+			else if ( item.CountsAsClass(DamageClass.Magic) ) return DamageClass.Magic;
+			else if ( item.CountsAsClass(DamageClass.Throwing) ) return DamageClass.Throwing;
+			else if ( item.CountsAsClass(DamageClass.Summon) ) return DamageClass.Summon;
+            else
+            {
+				foreach (DamageClass dc in DamageTypes.DamageClasses)
+				{
+					if (item.CountsAsClass(dc))
+					{
+						return dc;
+					}
+				}
+			}
 
-			return Types.Unknown;
+			return DamageClass.Generic;
 		}
 
-		public static Types GetType(Projectile projectile) {
-			if ( ProjectileOverrideList.ContainsKey(projectile.Name) ) {
-				return ProjectileOverrideList[projectile.Name];
-			}
-			ModProjectile mproj = projectile.ModProjectile;
-			if ( mproj != null ) {
-				Type mprojtype = mproj.GetType();
+		public static DamageClass GetType(Projectile projectile) {
+            if (ProjectileOverrideList.ContainsKey(projectile.Name))
+            {
+                return ProjectileOverrideList[projectile.Name];
+            }
+            ModProjectile mproj = projectile.ModProjectile;
+            if (mproj != null)
+            {
+                Type mprojtype = mproj.GetType();
 
-				if ( ProjectileOverrideList.ContainsKey(mprojtype.ToString()) ) {
-					return ProjectileOverrideList[mprojtype.ToString()];
-				}
-				if ( Config.Instance.DebugMode ) ColoredDamageTypes.Log("Projectile: " + mprojtype.ToString());
-			}
+                if (ProjectileOverrideList.ContainsKey(mprojtype.ToString()))
+                {
+                    return ProjectileOverrideList[mprojtype.ToString()];
+                }
+                if (Config.Instance.DebugMode) ColoredDamageTypes.Log("Projectile: " + mprojtype.ToString());
+            }
 
-			//ThoriumMod Check
-			if ( ColoredDamageTypes.ThoriumMod != null && mproj != null && mproj.Mod == ColoredDamageTypes.ThoriumMod ) {
-				Type mprojtype = mproj.GetType();
-				string typestr = mprojtype.ToString();
-				if ( typestr.Contains("ThoriumMod.Projectiles.Scythe") || typestr.Contains("ThoriumMod.Projectiles.Healer") ) return Types.Radiant;
-				else if ( typestr.Contains("ThoriumMod.Projectiles.Bard") ) return Types.Symphonic;
-				else if ( typestr.Contains("ThoriumMod.Items.ThrownItems") ) return Types.Thrown;
-			}
-
-			//EnigmaMod Check
-			if ( ColoredDamageTypes.EnigmaMod != null && mproj != null && mproj.Mod == ColoredDamageTypes.EnigmaMod ) {
-				Type mprojtype = mproj.GetType();
-				string typestr = mprojtype.ToString();
-				if ( typestr.Contains("Laugicality.Items.Weapons.Mystic") || typestr.Contains("Laugicality.Projectiles.Mystic") ) return Types.Mystic;
-			}
-
-			//RedemptionMod Check
-			if ( ColoredDamageTypes.RedemptionMod != null && mproj != null && mproj.Mod == ColoredDamageTypes.RedemptionMod ) {
-				Type mprojtype = mproj.GetType();
-				string typestr = mprojtype.ToString();
-				if ( typestr.Contains("Redemption.Items.DruidDamageClass") || typestr.Contains("Redemption.Projectiles.DruidProjectiles" ) ) return Types.Druidic;
-			}
-
-			//CalamityMod Check
-			if ( ColoredDamageTypes.CalamityMod != null && mproj != null && mproj.Mod == ColoredDamageTypes.CalamityMod ) {
-				Type mprojtype = mproj.GetType();
-				string typestr = mprojtype.ToString();
-				if ( typestr.Contains("CalamityMod.Items.Weapons.Rogue") || typestr.Contains("CalamityMod.Projectiles.Rogue") ) return Types.Rogue;
-			}
-
-			//DBZMod Check
-			if ( ColoredDamageTypes.DbzMod != null && mproj != null && mproj.Mod == ColoredDamageTypes.DbzMod ) {
-				Type mprojtype = mproj.GetType();
-				string typestr = mprojtype.ToString();
-				if ( typestr.Contains("DBZMOD.Projectiles") || (typestr.Contains("DBZMOD.Items.Weapons") && !typestr.Contains("Normal") ) ) return Types.Ki;
-			}
-
-			//BattleRod Check
-			if ( ColoredDamageTypes.BattleRodsMod != null && mproj != null && mproj.Mod == ColoredDamageTypes.BattleRodsMod ) {
-				Type mprojtype = mproj.GetType();
-				string typestr = mprojtype.ToString();
-				if ( typestr.Contains("UnuBattleRods.Projectiles") || typestr.Contains("UnuBattleRods.Items.Rods") ) return Types.Fishing;
-			}
-
-			//Clicker Check
-			if ( ColoredDamageTypes.ClickerMod != null && mproj != null && mproj.Mod == ColoredDamageTypes.ClickerMod ) {
-				Type mprojtype = mproj.GetType();
-				string typestr = mprojtype.ToString();
-				if ( typestr.Contains("ClickerClass.Items.Weapons") || typestr.Contains("ClickerClass.Projectiles") ) return Types.Click;
-			}
-
-			/*//OrchidMod Check
-			if ( ColoredDamageTypes.OrchidMod != null && mproj != null && mproj.mod == ColoredDamageTypes.OrchidMod ) {
-				Type mprojtype = mproj.GetType();
-				string typestr = mprojtype.ToString();
-				if ( typestr.Contains("OrchidMod.Shaman.Weapons") || typestr.Contains("OrchidMod.Shaman.Projectiles") ) return Types.Shamanic;
-			}
-			*/
-
-			/*
-			if (ColoredDamageTypes.TremorMod != null && mproj != null && mproj.mod == ColoredDamageTypes.TremorMod) {
-				Type mprojType = mproj.GetType();
-				string mitemTypestr = mprojType.ToString();
-				bool isAlchemic = mitemTypestr.Contains("Alchemist.") || mitemTypestr.Contains("Alchemic.") || mitemTypestr.Contains("NovaPillar.");
-				if (mprojType != null && isAlchemic == true) return Types.Alchemic;
-			}
-			*/
-
-			Item item = null;
+            Item item = null;
 			Item selecteditem = Main.player[projectile.owner].inventory[Main.player[projectile.owner].selectedItem];
 			if (!ProjectilesBypassItemType.Contains(projectile.Name)) ProjectileTypeCheck(projectile, selecteditem, ref item);
 
@@ -407,14 +305,14 @@ namespace ColoredDamageTypes
 				}
 
 
-				if ( fromsummon == 2 || projectile.sentry ) return Types.Sentry;
-				else if ( fromsummon == 1 || projectile.minion ) return Types.Summon;
-				else if ( projectile.CountsAsClass(DamageClass.Melee) && !projectile.CountsAsClass(DamageClass.Magic) && !projectile.CountsAsClass(DamageClass.Throwing) && !projectile.minion && !projectile.sentry ) return Types.Melee;
-				else if ( projectile.CountsAsClass(DamageClass.Ranged) && !projectile.CountsAsClass(DamageClass.Magic) && !projectile.CountsAsClass(DamageClass.Throwing) && !projectile.minion && !projectile.sentry ) return Types.Ranged;
-				else if ( projectile.CountsAsClass(DamageClass.Magic) && !projectile.minion && !projectile.sentry ) return Types.Magic;
-				else if ( projectile.CountsAsClass(DamageClass.Throwing) && !projectile.minion && !projectile.sentry ) return Types.Thrown;
+				if ( fromsummon == 2 || projectile.sentry ) return ModContent.GetInstance<SentryClass>();
+				if ( fromsummon == 1 || projectile.minion ) return DamageClass.Summon;
+				else if ( projectile.CountsAsClass(DamageClass.Melee) && !projectile.CountsAsClass(DamageClass.Magic) && !projectile.CountsAsClass(DamageClass.Throwing) && !projectile.minion && !projectile.sentry ) return DamageClass.Melee;
+				else if ( projectile.CountsAsClass(DamageClass.Ranged) && !projectile.CountsAsClass(DamageClass.Magic) && !projectile.CountsAsClass(DamageClass.Throwing) && !projectile.minion && !projectile.sentry ) return DamageClass.Ranged;
+				else if ( projectile.CountsAsClass(DamageClass.Magic) && !projectile.minion && !projectile.sentry ) return DamageClass.Magic;
+				else if ( projectile.CountsAsClass(DamageClass.Throwing) && !projectile.minion && !projectile.sentry ) return DamageClass.Throwing;
 
-				return Types.Unknown;
+				return DamageClass.Generic;
 			}
 		}
 
@@ -453,66 +351,40 @@ namespace ColoredDamageTypes
 		}
 
 
-		public static Color CheckDamageColor(Types dmgtype, bool crit) {
+		public static Color CheckDamageColor(DamageClass dmgtype, bool crit, bool sentrycheck) {
 			Color newcolor;
-			switch ( dmgtype ) {
-				case Types.Melee:
-					newcolor = crit ? DamageConfig.Instance.VanillaDmg.MeleeDmg.MeleeDamageCrit : DamageConfig.Instance.VanillaDmg.MeleeDmg.MeleeDamage;
-					break;
-				case Types.Ranged:
-					newcolor = crit ? DamageConfig.Instance.VanillaDmg.RangedDmg.RangedDamageCrit : DamageConfig.Instance.VanillaDmg.RangedDmg.RangedDamage;
-					break;
-				case Types.Magic:
-					newcolor = crit ? DamageConfig.Instance.VanillaDmg.MagicDmg.MagicDamageCrit : DamageConfig.Instance.VanillaDmg.MagicDmg.MagicDamage;
-					break;
-				case Types.Thrown:
-					newcolor = crit ? DamageConfig.Instance.VanillaDmg.ThrowingDmg.ThrowingDamageCrit : DamageConfig.Instance.VanillaDmg.ThrowingDmg.ThrowingDamage;
-					break;
-				case Types.Summon:
-					newcolor = crit ? DamageConfig.Instance.VanillaDmg.SummonDmg.SummonDamageCrit : DamageConfig.Instance.VanillaDmg.SummonDmg.SummonDamage;
-					break;
-				case Types.Sentry:
-					newcolor = crit ? DamageConfig.Instance.VanillaDmg.SentryDmg.SentryDamageCrit : DamageConfig.Instance.VanillaDmg.SentryDmg.SentryDamage;
-					break;
-				/*case Types.Radiant:
-					newcolor = crit ? DamageConfig.Instance.ThoriumDmg.RadiantDmg.RadiantDamageCrit : DamageConfig.Instance.ThoriumDmg.RadiantDmg.RadiantDamage;
-					break;
-				case Types.Symphonic:
-					newcolor = crit ? DamageConfig.Instance.ThoriumDmg.SymphonicDmg.SymphonicDamageCrit : DamageConfig.Instance.ThoriumDmg.SymphonicDmg.SymphonicDamage;
-					break;
-				case Types.True:
-					newcolor = crit ? DamageConfig.Instance.ThoriumDmg.TrueDmg.TrueDamageCrit : DamageConfig.Instance.ThoriumDmg.TrueDmg.TrueDamage;
-					break;
-				case Types.Mystic:
-					newcolor = crit ? DamageConfig.Instance.EnigmaDmg.MysticDmg.MysticDamageCrit : DamageConfig.Instance.EnigmaDmg.MysticDmg.MysticDamage;
-					break;
-				case Types.Druidic:
-					newcolor = crit ? DamageConfig.Instance.RedemptionDmg.DruidicDmg.DruidicDamageCrit : DamageConfig.Instance.RedemptionDmg.DruidicDmg.DruidicDamage;
-					break;
-				case Types.Ki:
-					newcolor = crit ? DamageConfig.Instance.DbzModDmg.KiDmg.KiDamageCrit : DamageConfig.Instance.DbzModDmg.KiDmg.KiDamage;
-					break;
-				case Types.Rogue:
-					newcolor = crit ? DamageConfig.Instance.CalamityModDmg.RogueDmg.RogueDamageCrit : DamageConfig.Instance.CalamityModDmg.RogueDmg.RogueDamage;
-					break;
-				case Types.Fishing:
-					newcolor = crit ? DamageConfig.Instance.BattleRodModDmg.FishingDmg.FishingDamageCrit : DamageConfig.Instance.BattleRodModDmg.FishingDmg.FishingDamage;
-					break;
-				case Types.Click:
-					newcolor = crit ? DamageConfig.Instance.ClickerModDmg.ClickDmg.ClickDamageCrit : DamageConfig.Instance.ClickerModDmg.ClickDmg.ClickDamage;
-					break;*/
-
-				/*
-				case Types.Alchemic:
-					newcolor = crit ? DamageConfig.Instance.TremorDmg.AlchemicDmg.AlchemicDamageCrit : DamageConfig.Instance.TremorDmg.AlchemicDmg.AlchemicDamage;
-					break;
-				*/
-				case Types.Unknown:
-					newcolor = crit ? CombatText.DamagedHostileCrit : CombatText.DamagedHostile;
-					break;
-				default:
-					newcolor = crit ? CombatText.DamagedHostileCrit : CombatText.DamagedHostile;
-					break;
+			if(dmgtype == DamageClass.Melee)
+            {
+				newcolor = crit ? DamageConfig.Instance.VanillaDmg.MeleeDmg.MeleeDamageCrit : DamageConfig.Instance.VanillaDmg.MeleeDmg.MeleeDamage;
+			}
+			else if (dmgtype == DamageClass.Ranged)
+			{
+				newcolor = crit ? DamageConfig.Instance.VanillaDmg.RangedDmg.RangedDamageCrit : DamageConfig.Instance.VanillaDmg.RangedDmg.RangedDamage;
+			}
+			else if (dmgtype == DamageClass.Magic)
+			{
+				newcolor = crit ? DamageConfig.Instance.VanillaDmg.MagicDmg.MagicDamageCrit : DamageConfig.Instance.VanillaDmg.MagicDmg.MagicDamage;
+			}
+			else if (dmgtype == DamageClass.Throwing)
+			{
+				newcolor = crit ? DamageConfig.Instance.VanillaDmg.ThrowingDmg.ThrowingDamageCrit : DamageConfig.Instance.VanillaDmg.ThrowingDmg.ThrowingDamage;
+			}
+			else if (dmgtype == ModContent.GetInstance<SentryClass>())
+			{
+				newcolor = crit ? DamageConfig.Instance.VanillaDmg.SentryDmg.SentryDamageCrit : DamageConfig.Instance.VanillaDmg.SentryDmg.SentryDamage;
+			}
+			else if (dmgtype == DamageClass.Summon)
+			{
+				if (sentrycheck) newcolor = crit ? DamageConfig.Instance.VanillaDmg.SentryDmg.SentryDamageCrit : DamageConfig.Instance.VanillaDmg.SentryDmg.SentryDamage;
+				else newcolor = crit ? DamageConfig.Instance.VanillaDmg.SummonDmg.SummonDamageCrit : DamageConfig.Instance.VanillaDmg.SummonDmg.SummonDamage;
+			}
+			else if (dmgtype == DamageClass.Generic)
+			{
+				newcolor = crit ? CombatText.DamagedHostileCrit : CombatText.DamagedHostile;
+			}
+			else
+            {
+				newcolor = crit ? zCrossModConfig.CrossModDamageConfig_Orig[dmgtype.ToString()].CritDamageColor : zCrossModConfig.CrossModDamageConfig_Orig[dmgtype.ToString()].DamageColor;
 			}
 			return newcolor;
 		}

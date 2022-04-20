@@ -37,11 +37,11 @@ namespace ColoredDamageTypes
 			if (recent == -1) return;
 			else {
 				Color newcolor;
-				DamageTypes.Types dmgtype = DamageTypes.GetType(item);
+				DamageClass dmgtype = DamageTypes.GetType(item);
 
 				if(Config.Instance.DebugMode) ColoredDamageTypes.Log("HitByItem: "+damage+item.Name + "/" + item.type + ": " + item.shoot+" "+ dmgtype.ToString());
 
-				newcolor = DamageTypes.CheckDamageColor(dmgtype, crit);
+				newcolor = DamageTypes.CheckDamageColor(dmgtype, crit, item.sentry);
 
 				Main.combatText[recent].color = newcolor;
 				Main.combatText[recent].active = Config.Instance.ShowDamageNumbers;
@@ -68,11 +68,11 @@ namespace ColoredDamageTypes
 			if (recent == -1) return;
 			else {
 				Color newcolor;
-				DamageTypes.Types dmgtype = DamageTypes.GetType(projectile);
+				DamageClass dmgtype = DamageTypes.GetType(projectile);
 
 				if ( Config.Instance.DebugMode) ColoredDamageTypes.Log("HitByProjectile: " + damage+" "+projectile.Name+"/"+projectile.type+": "+dmgtype.ToString());
 
-				newcolor = DamageTypes.CheckDamageColor(dmgtype, crit);
+				newcolor = DamageTypes.CheckDamageColor(dmgtype, crit, projectile.sentry);
 
 				//Main.combatText[recent].active = false;
 				//Main.combatText[recent].lifeTime = 0;
@@ -85,15 +85,18 @@ namespace ColoredDamageTypes
 		}
 
 		public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit) {
-			Netcode.recentcolor_out = DamageTypes.GetType(item);
+			//TODO: Make numbers correspond to netcode damage type
+			//Netcode.recentcolor_out = DamageTypes.GetType(item);
 			Netcode.recentdmg_out = damage;
 			Netcode.recentkb_out = knockback;
 			Netcode.recentcrit_out = (byte)(crit?1:0);
 			
 		}
 
-		public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
-			Netcode.recentcolor_out = DamageTypes.GetType(projectile);
+		public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		{
+			//TODO: Make numbers correspond to netcode damage type
+			//Netcode.recentcolor_out = DamageTypes.GetType(projectile);
 			Netcode.recentdmg_out = damage;
 			Netcode.recentkb_out = knockback;
 			Netcode.recentcrit_out = (byte)(crit?1:0);

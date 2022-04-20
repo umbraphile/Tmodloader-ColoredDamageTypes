@@ -25,62 +25,34 @@ namespace ColoredDamageTypes
 							newcolor = TooltipsConfig.Instance.VanillaTT.TooltipDefense;
 							break;
 						case "Damage":
-							DamageTypes.Types dmgtype = DamageTypes.GetType(item);
+							DamageClass dmgtype = DamageTypes.GetType(item);
 							//Main.NewText("its damage");
-							switch (dmgtype) {
-								case DamageTypes.Types.Melee:
-									newcolor = TooltipsConfig.Instance.VanillaTT.TooltipMelee;
-									break;
-								case DamageTypes.Types.Ranged:
-									newcolor = TooltipsConfig.Instance.VanillaTT.TooltipRanged;
-									break;
-								case DamageTypes.Types.Magic:
-									newcolor = TooltipsConfig.Instance.VanillaTT.TooltipMagic;
-									break;
-								case DamageTypes.Types.Thrown:
-									newcolor = TooltipsConfig.Instance.VanillaTT.TooltipThrowing;
-									break;
-								case DamageTypes.Types.Summon:
-									newcolor = TooltipsConfig.Instance.VanillaTT.TooltipSummon;
-									break;
-								case DamageTypes.Types.Sentry:
-									newcolor = TooltipsConfig.Instance.VanillaTT.TooltipSentry;
-									break;
-								/*case DamageTypes.Types.Radiant:
-									newcolor = TooltipsConfig.Instance.ThoriumTT.TooltipRadiant;
-									break;
-								case DamageTypes.Types.Symphonic:
-									newcolor = TooltipsConfig.Instance.ThoriumTT.TooltipSymphonic;
-									break;
-								case DamageTypes.Types.True:
-									newcolor = TooltipsConfig.Instance.ThoriumTT.TooltipTrue;
-									break;
-								case DamageTypes.Types.Druidic:
-									newcolor = TooltipsConfig.Instance.RedemptionTT.TooltipDruidic;
-									break;
-								case DamageTypes.Types.Mystic:
-									newcolor = TooltipsConfig.Instance.EnigmaTT.TooltipMystic;
-									break;
-								case DamageTypes.Types.Ki:
-									newcolor = TooltipsConfig.Instance.DbzModTT.TooltipKi;
-									break;
-								case DamageTypes.Types.Rogue:
-									newcolor = TooltipsConfig.Instance.CalamityTT.TooltipRogue;
-									break;
-								case DamageTypes.Types.Fishing:
-									newcolor = TooltipsConfig.Instance.BattleRodsTT.TooltipFishing;
-									break;
-								case DamageTypes.Types.Click:
-									newcolor = TooltipsConfig.Instance.ClickerModTT.TooltipClicker;
-									break;*/
-								/*
-								case DamageTypes.Types.Alchemic:
-									newcolor = TooltipsConfig.Instance.TremorTT.TooltipAlchemic;
-									break;
-								*/
-								default:
-									break;
+							if(dmgtype == DamageClass.Melee)
+                            {
+								newcolor = TooltipsConfig.Instance.VanillaTT.TooltipMelee;
 							}
+							else if (dmgtype == DamageClass.Ranged)
+							{
+								newcolor = TooltipsConfig.Instance.VanillaTT.TooltipRanged;
+							}
+							else if (dmgtype == DamageClass.Magic)
+							{
+								newcolor = TooltipsConfig.Instance.VanillaTT.TooltipMagic;
+							}
+							else if (dmgtype == DamageClass.Throwing)
+							{
+								newcolor = TooltipsConfig.Instance.VanillaTT.TooltipThrowing;
+							}
+							else if (dmgtype == DamageClass.Summon)
+							{	
+								if(item.sentry) newcolor = TooltipsConfig.Instance.VanillaTT.TooltipSentry;
+								else newcolor = TooltipsConfig.Instance.VanillaTT.TooltipSummon;
+							}
+                            else if (dmgtype != DamageClass.Generic)
+                            {
+								newcolor = zCrossModConfig.CrossModDamageConfig_Orig[dmgtype.ToString()].TooltipColor;
+                            }
+
 							break;
 					}
 					if ( newcolor != Color.White ) tooltip.overrideColor = newcolor;
