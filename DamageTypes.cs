@@ -139,7 +139,7 @@ namespace ColoredDamageTypes
 		
 		public static string[] ProjectilesBypassItemType = new string[] {"Bullet", "Bee", "XBone"};
 
-
+		public static List<DamageClass> DamageClasses = new List<DamageClass>();
 		public enum Types { Unknown, Melee, Ranged, Magic, Thrown, Summon, Sentry, Radiant, Symphonic, True, Mystic, Druidic, Rogue, Ki, Fishing, Click }
 		public static Types GetType(Item item) {
 			//ThoriumMod Check
@@ -148,6 +148,8 @@ namespace ColoredDamageTypes
 				return ItemOverrideList[item.Name];
 			}
 
+			//item.DamageType
+			//item.CountsAsClass(ModContent.GetInstance<NecroDamageClass>());
 			ModItem mitem = item.ModItem;
 
 			if ( mitem != null ) {
@@ -472,7 +474,7 @@ namespace ColoredDamageTypes
 				case Types.Sentry:
 					newcolor = crit ? DamageConfig.Instance.VanillaDmg.SentryDmg.SentryDamageCrit : DamageConfig.Instance.VanillaDmg.SentryDmg.SentryDamage;
 					break;
-				case Types.Radiant:
+				/*case Types.Radiant:
 					newcolor = crit ? DamageConfig.Instance.ThoriumDmg.RadiantDmg.RadiantDamageCrit : DamageConfig.Instance.ThoriumDmg.RadiantDmg.RadiantDamage;
 					break;
 				case Types.Symphonic:
@@ -498,7 +500,7 @@ namespace ColoredDamageTypes
 					break;
 				case Types.Click:
 					newcolor = crit ? DamageConfig.Instance.ClickerModDmg.ClickDmg.ClickDamageCrit : DamageConfig.Instance.ClickerModDmg.ClickDmg.ClickDamage;
-					break;
+					break;*/
 
 				/*
 				case Types.Alchemic:

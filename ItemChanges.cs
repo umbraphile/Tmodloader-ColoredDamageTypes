@@ -46,7 +46,7 @@ namespace ColoredDamageTypes
 								case DamageTypes.Types.Sentry:
 									newcolor = TooltipsConfig.Instance.VanillaTT.TooltipSentry;
 									break;
-								case DamageTypes.Types.Radiant:
+								/*case DamageTypes.Types.Radiant:
 									newcolor = TooltipsConfig.Instance.ThoriumTT.TooltipRadiant;
 									break;
 								case DamageTypes.Types.Symphonic:
@@ -72,7 +72,7 @@ namespace ColoredDamageTypes
 									break;
 								case DamageTypes.Types.Click:
 									newcolor = TooltipsConfig.Instance.ClickerModTT.TooltipClicker;
-									break;
+									break;*/
 								/*
 								case DamageTypes.Types.Alchemic:
 									newcolor = TooltipsConfig.Instance.TremorTT.TooltipAlchemic;

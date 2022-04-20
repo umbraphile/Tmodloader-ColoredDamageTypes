@@ -24,8 +24,8 @@ namespace ColoredDamageTypes
 		public static Mod ClickerMod;
 		public static Mod ExampleMod;
 		//public static Mod OrchidMod;
-
 		//public static Mod TremorMod;
+
 		public static bool ChangeTooltipColor = true;
 		public static bool ChangeDamageColor = true;
 		public static ColoredDamageTypes instance;
@@ -39,7 +39,7 @@ namespace ColoredDamageTypes
 			instance = this;
 		}
 
-		public override void PostSetupContent()
+        public override void PostSetupContent()
 		{
 			ModLoader.TryGetMod("ThoriumMod", out ThoriumMod);
             ModLoader.TryGetMod("Laugicality", out EnigmaMod);
@@ -75,6 +75,22 @@ namespace ColoredDamageTypes
 				Netcode.recentkb_in = reader.ReadSingle();
 				Netcode.recentcrit_in = reader.ReadByte();
 			}
+		}
+		public override object Call(params object[] args)
+		{
+			//coloreddamagetypes.Call(ModContent.GetInstance<ExampleDamageClass>(), new Color(255, 0, 0), new Color(0, 255, 0), new Color(0, 0, 255));
+
+			if (args[0] is DamageClass dc)
+            {
+				if(args[1] is Color ttcolor && args[2] is Color dmgcolor && args[3] is Color critdmgcolor)
+                {
+					//zCrossModConfig.DamageType dt = new zCrossModConfig.DamageType("Example", ttcolor, dmgcolor, critdmgcolor);
+					//zCrossModConfig.Current_CrossModDamageConfig.Add("Example", dt);
+					//zCrossModConfig.CrossModDamageConfig
+                }
+            }
+
+			return this;
 		}
 	}
 }
