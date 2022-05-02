@@ -50,12 +50,12 @@ namespace ColoredDamageTypes
 							}
                             else if (dmgtype != DamageClass.Generic)
                             {
-								newcolor = zCrossModConfig.CrossModDamageConfig_Orig[dmgtype.ToString()].TooltipColor;
+								newcolor = zCrossModConfig.Instance.CrossModDamageConfig[dmgtype.ToString()].TooltipColor;
                             }
 
 							break;
 					}
-					if ( newcolor != Color.White ) tooltip.overrideColor = newcolor;
+					if ( newcolor != Color.White ) tooltip.OverrideColor = newcolor;
 				}
 			}
 		}

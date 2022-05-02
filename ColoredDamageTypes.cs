@@ -14,17 +14,6 @@ namespace ColoredDamageTypes
 {
 	class ColoredDamageTypes : Mod
 	{
-        public static Mod ThoriumMod;
-		public static Mod EnigmaMod;
-		public static Mod RedemptionMod;
-		public static Mod CalamityMod;
-		public static Mod DbzMod;
-		public static Mod EsperClassMod;
-		public static Mod BattleRodsMod;
-		public static Mod ClickerMod;
-		public static Mod ExampleMod;
-		//public static Mod OrchidMod;
-		//public static Mod TremorMod;
 
 		public static bool ChangeTooltipColor = true;
 		public static bool ChangeDamageColor = true;

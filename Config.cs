@@ -286,7 +286,11 @@ namespace ColoredDamageTypes
 
         }
 
-		public zCrossModConfig()
+        public override void OnChanged()
+        {
+            base.OnChanged();
+        }
+        public zCrossModConfig()
 		{
 
 			CrossModDamageConfig = new Dictionary<string, DamageType>(CrossModDamageConfig_Orig);

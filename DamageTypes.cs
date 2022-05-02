@@ -195,7 +195,7 @@ namespace ColoredDamageTypes
             }
 
 
-            /*//OrchidMod Check
+			/*//OrchidMod Check
 			if ( ColoredDamageTypes.OrchidMod != null && mitem != null && mitem.mod == ColoredDamageTypes.OrchidMod ) {
 				Type mprojtype = mitem.GetType();
 				string typestr = mprojtype.ToString();
@@ -204,7 +204,7 @@ namespace ColoredDamageTypes
 			*/
 
 
-            /*
+			/*
 			if (ColoredDamageTypes.TremorMod != null && mitem != null && mitem.mod == ColoredDamageTypes.TremorMod) {
 				Type mitemType = mitem.GetType();
 				string mitemTypestr = mitemType.ToString();
@@ -213,13 +213,14 @@ namespace ColoredDamageTypes
 			}
 			*/
 
-            if ( item.CountsAsClass(DamageClass.Melee) && !item.CountsAsClass(DamageClass.Magic) && !item.CountsAsClass(DamageClass.Throwing)) return DamageClass.Melee;
-			else if ( item.CountsAsClass(DamageClass.Ranged) && !item.CountsAsClass(DamageClass.Magic) && !item.CountsAsClass(DamageClass.Throwing) ) return DamageClass.Ranged;
-			else if ( item.CountsAsClass(DamageClass.Magic) ) return DamageClass.Magic;
-			else if ( item.CountsAsClass(DamageClass.Throwing) ) return DamageClass.Throwing;
-			else if ( item.CountsAsClass(DamageClass.Summon) ) return DamageClass.Summon;
-            else
-            {
+			if (item.CountsAsClass(DamageClass.Melee) && !item.CountsAsClass(DamageClass.Magic) && !item.CountsAsClass(DamageClass.Throwing)) return DamageClass.Melee;
+			else if (item.CountsAsClass(DamageClass.Ranged) && !item.CountsAsClass(DamageClass.Magic) && !item.CountsAsClass(DamageClass.Throwing)) return DamageClass.Ranged;
+			else if (item.CountsAsClass(DamageClass.Magic)) return DamageClass.Magic;
+			else if (item.CountsAsClass(DamageClass.Throwing)) return DamageClass.Throwing;
+			else if (item.CountsAsClass(DamageClass.Summon)) return DamageClass.Summon;
+			else if (item.CountsAsClass(DamageClass.SummonMeleeSpeed)) return DamageClass.Summon;
+			else
+			{
 				foreach (DamageClass dc in DamageTypes.DamageClasses)
 				{
 					if (item.CountsAsClass(dc))
@@ -311,6 +312,18 @@ namespace ColoredDamageTypes
 				else if ( projectile.CountsAsClass(DamageClass.Ranged) && !projectile.CountsAsClass(DamageClass.Magic) && !projectile.CountsAsClass(DamageClass.Throwing) && !projectile.minion && !projectile.sentry ) return DamageClass.Ranged;
 				else if ( projectile.CountsAsClass(DamageClass.Magic) && !projectile.minion && !projectile.sentry ) return DamageClass.Magic;
 				else if ( projectile.CountsAsClass(DamageClass.Throwing) && !projectile.minion && !projectile.sentry ) return DamageClass.Throwing;
+				else if ( projectile.CountsAsClass(DamageClass.Summon)) return DamageClass.Summon;
+				else if ( projectile.CountsAsClass(DamageClass.SummonMeleeSpeed)) return DamageClass.Summon;
+				else
+				{
+					foreach (DamageClass dc in DamageTypes.DamageClasses)
+					{
+						if (item.CountsAsClass(dc))
+						{
+							return dc;
+						}
+					}
+				}
 
 				return DamageClass.Generic;
 			}
@@ -384,7 +397,7 @@ namespace ColoredDamageTypes
 			}
 			else
             {
-				newcolor = crit ? zCrossModConfig.CrossModDamageConfig_Orig[dmgtype.ToString()].CritDamageColor : zCrossModConfig.CrossModDamageConfig_Orig[dmgtype.ToString()].DamageColor;
+				newcolor = crit ? zCrossModConfig.Instance.CrossModDamageConfig[dmgtype.ToString()].CritDamageColor : zCrossModConfig.Instance.CrossModDamageConfig[dmgtype.ToString()].DamageColor;
 			}
 			return newcolor;
 		}

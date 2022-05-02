@@ -86,7 +86,21 @@ namespace ColoredDamageTypes
 
 		public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit) {
 			//TODO: Make numbers correspond to netcode damage type
-			//Netcode.recentcolor_out = DamageTypes.GetType(item);
+			DamageClass dmgtype = DamageTypes.GetType(item);
+			int outint = 0;
+			if (dmgtype == DamageClass.Generic) outint = 0;
+			else if (dmgtype == DamageClass.Melee) outint = 1;
+			else if (dmgtype == DamageClass.Ranged) outint = 2;
+			else if (dmgtype == DamageClass.Magic) outint = 3;
+			else if (dmgtype == DamageClass.Summon) outint = 4;
+			else if (dmgtype == ModContent.GetInstance<SentryClass>()) outint = 5;
+			else if (dmgtype == DamageClass.Throwing) outint = 6;
+			else
+            {
+				int indexfound = DamageTypes.DamageClasses.FindIndex(dt => dt == dmgtype);
+				if (indexfound != -1) outint = 7 + indexfound + 1;
+            }
+			Netcode.recentcolor_out = outint;
 			Netcode.recentdmg_out = damage;
 			Netcode.recentkb_out = knockback;
 			Netcode.recentcrit_out = (byte)(crit?1:0);
@@ -96,7 +110,21 @@ namespace ColoredDamageTypes
 		public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
 			//TODO: Make numbers correspond to netcode damage type
-			//Netcode.recentcolor_out = DamageTypes.GetType(projectile);
+			DamageClass dmgtype = DamageTypes.GetType(projectile);
+			int outint = 0;
+			if (dmgtype == DamageClass.Generic) outint = 0;
+			else if (dmgtype == DamageClass.Melee) outint = 1;
+			else if (dmgtype == DamageClass.Ranged) outint = 2;
+			else if (dmgtype == DamageClass.Magic) outint = 3;
+			else if (dmgtype == DamageClass.Summon) outint = 4;
+			else if (dmgtype == ModContent.GetInstance<SentryClass>()) outint = 5;
+			else if (dmgtype == DamageClass.Throwing) outint = 6;
+			else
+			{
+				int indexfound = DamageTypes.DamageClasses.FindIndex(dt => dt == dmgtype);
+				if (indexfound != -1) outint = 7 + indexfound + 1;
+			}
+			Netcode.recentcolor_out = outint;
 			Netcode.recentdmg_out = damage;
 			Netcode.recentkb_out = knockback;
 			Netcode.recentcrit_out = (byte)(crit?1:0);

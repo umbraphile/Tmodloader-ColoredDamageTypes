@@ -77,8 +77,25 @@ namespace ColoredDamageTypes
 						}
 						if (recent > -1)
 						{
-							//TODO: MAKE THIS READ THE RIGHT TYPE FOR NETCODE
-							//Main.combatText[recent].color = DamageTypes.CheckDamageColor(recentcolor_in, crit) * 0.4f;
+
+							DamageClass intype = DamageClass.Generic;
+							bool sentrycheck = false;
+							if (recentcolor_in == 0) intype = DamageClass.Generic;
+							else if (recentcolor_in == 1) intype = DamageClass.Melee;
+							else if (recentcolor_in == 2) intype = DamageClass.Ranged;
+							else if (recentcolor_in == 3) intype = DamageClass.Magic;
+							else if (recentcolor_in == 4) intype = DamageClass.Summon;
+							else if (recentcolor_in == 5)
+							{
+								intype = ModContent.GetInstance<SentryClass>();
+								sentrycheck = true;
+							}
+							else if (recentcolor_in == 6) intype = DamageClass.Throwing;
+							else
+							{
+								intype = DamageTypes.DamageClasses[recentcolor_in - 8];
+							}
+							Main.combatText[recent].color = DamageTypes.CheckDamageColor(intype, crit, sentrycheck) * 0.4f;
 							Main.combatText[recent].active = Config.Instance.ShowMultiplayerDamageNumbers;
 						}
 						return true;
@@ -99,9 +116,16 @@ namespace ColoredDamageTypes
 				packet.Write(recentkb_out);
 				packet.Write(recentcrit_out);
 				packet.Send();
+				recentcolor_out = 0;
+				recentdmg_out = 0;
+				recentkb_out = 0;
+				recentcrit_out = 0;
 				return false;
 			}
 			return false;
 		}
 	}
 }
+
+
+//TODO, SOMETHING IS LETTING MINIONS CRIT
