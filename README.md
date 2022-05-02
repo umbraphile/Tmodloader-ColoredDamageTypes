@@ -1,0 +1,39 @@
+# Colored Damage Types
+
+
+Colored Damage Types changes the tooltip and damage text of weapons to be colored, so that it's easier to quickly tell what kind of damage the weapon deals at a glance.
+
+It is completely customizable via the mod config menu, but the default colors are as follows:
+
+Melee: Red
+Ranged: Green
+Magic: Blue
+Thrown: Brown
+Summon: Pink
+Sentries: Purple
+
+## Cross-Mod Compatibility
+
+This mod also supports custom [DamageClass](https://docs.tmodloader.net/html_alpha/class_terraria_1_1_mod_loader_1_1_damage_class.html) classes added by other mods by using the [Mod.Call](https://github.com/tModLoader/tModLoader/wiki/Expert-Cross-Mod-Content) function!
+
+To add support for your own mod's damage type, you simply need to reference my mod and call the following:
+```cs
+Mod.Call(DamageClass DamageClassToBeAdded, Color TooltipColor, Color DamageColor, Color CritDamageColor)
+
+//Alternatively, the colors can simply be passed as a tuple:
+
+Mod.Call(DamageClass DamageClassToBeAdded, (int r, int g, int b), (int r, int g, int b), (int r, int g, int b))
+```
+
+Example of how you would do it:
+```cs
+Mod coloreddamagetypes;
+if (ModLoader.TryGetMod("ColoredDamageTypes", out coloreddamagetypes))
+{
+	//Color version
+	coloreddamagetypes.Call(ModContent.GetInstance<ExampleDamageClass>(), new Color(255, 210, 88), new Color(160, 155, 70), new Color(255, 165, 120));
+
+	//Tuple version
+	coloreddamagetypes.Call(ModContent.GetInstance<AnotherExampleDamageClass>(), (255, 30, 88), (50, 155, 70), (255, 165, 120)); 
+}
+```
