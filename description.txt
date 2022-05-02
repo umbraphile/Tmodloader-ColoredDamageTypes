@@ -5,16 +5,11 @@ Ranged: Green
 Magic: Blue
 Thrown: Brown
 Summon: Pink
-Sentries: Light Purple
+Sentries: Purple
 
-Cross-Mod Support for these damage types:
-Thorium: Radiant, Symphonic, True
-Calamity: Rogue
-Redemption: Druidic
-Enigma: Mystic
-DBZ: Ki
-Battle Rods: Fishing
-Clicker Class: Click
+v1.7.1
+-Fixed error where tooltips weren't showing up in newest tmodloader version.
+-Added Mod.Call support to allow for other mods to add their own colors/support to this mod.
 
 v1.7.0
 -Updated to work with tModLoader 1.4 alpha. Let me know if there are any bugs, especially with the multiplayer as I didn't get to fully test that part.

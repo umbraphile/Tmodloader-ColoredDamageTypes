@@ -6,10 +6,15 @@ Colored Damage Types changes the tooltip and damage text of weapons to be colore
 It is completely customizable via the mod config menu, but the default colors are as follows:
 
 Melee: Red
+
 Ranged: Green
+
 Magic: Blue
+
 Thrown: Brown
+
 Summon: Pink
+
 Sentries: Purple
 
 ## Cross-Mod Compatibility
@@ -20,15 +25,14 @@ To add support for your own mod's damage type, you simply need to reference my m
 ```cs
 Mod.Call(DamageClass DamageClassToBeAdded, Color TooltipColor, Color DamageColor, Color CritDamageColor)
 
-//Alternatively, the colors can simply be passed as a tuple:
+//Alternatively, the rgb values can simply be passed as a tuple:
 
-Mod.Call(DamageClass DamageClassToBeAdded, (int r, int g, int b), (int r, int g, int b), (int r, int g, int b))
+Mod.Call(DamageClass DamageClassToBeAdded, (int r1, int g1, int b1), (int r2, int g2, int b2), (int r3, int g3, int b3))
 ```
 
 Example of how you would do it:
 ```cs
-Mod coloreddamagetypes;
-if (ModLoader.TryGetMod("ColoredDamageTypes", out coloreddamagetypes))
+if (ModLoader.TryGetMod("ColoredDamageTypes", out Mod coloreddamagetypes))
 {
 	//Color version
 	coloreddamagetypes.Call(ModContent.GetInstance<ExampleDamageClass>(), new Color(255, 210, 88), new Color(160, 155, 70), new Color(255, 165, 120));
