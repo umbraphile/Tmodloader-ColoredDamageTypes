@@ -27,7 +27,6 @@ Mod.Call(DamageClass DamageClassToBeAdded, Color TooltipColor, Color DamageColor
 
 //Alternatively, the rgb values can simply be passed as a tuple.
 //First tuple is Tooltip color, 2nd is damage color, 3rd is crit damage color:
-//First tuple is Tooltip color, 2nd is damage color, 3rd is crit damage color.  
 
 Mod.Call("AddDamageType", DamageClass DamageClassToBeAdded, int r1, int g1, int b1), (int r2, int g2, int b2), (int r3, int g3, int b3))
 ```
