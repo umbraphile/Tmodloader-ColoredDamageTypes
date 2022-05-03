@@ -7,9 +7,12 @@ Thrown: Brown
 Summon: Pink
 Sentries: Purple
 
+Now has cross-mod support! For instructions on how to add your mod's damage type, check out the github:
+https://github.com/PvtFudgepants/Tmodloader-ColoredDamageText#cross-mod-compatibility
+
 v1.7.1
 -Fixed error where tooltips weren't showing up in newest tmodloader version.
--Added Mod.Call support to allow for other mods to add their own colors/support to this mod.
+-Added Mod.Call support to allow for other mods to add their own colors/support to this mod. 
 
 v1.7.0
 -Updated to work with tModLoader 1.4 alpha. Let me know if there are any bugs, especially with the multiplayer as I didn't get to fully test that part.

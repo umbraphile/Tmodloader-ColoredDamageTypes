@@ -25,9 +25,11 @@ To add support for your own mod's damage type, you simply need to reference my m
 ```cs
 Mod.Call(DamageClass DamageClassToBeAdded, Color TooltipColor, Color DamageColor, Color CritDamageColor)
 
-//Alternatively, the rgb values can simply be passed as a tuple:
+//Alternatively, the rgb values can simply be passed as a tuple.
+//First tuple is Tooltip color, 2nd is damage color, 3rd is crit damage color:
+//First tuple is Tooltip color, 2nd is damage color, 3rd is crit damage color.  
 
-Mod.Call(DamageClass DamageClassToBeAdded, (int r1, int g1, int b1), (int r2, int g2, int b2), (int r3, int g3, int b3))
+Mod.Call("AddDamageType", DamageClass DamageClassToBeAdded, int r1, int g1, int b1), (int r2, int g2, int b2), (int r3, int g3, int b3))
 ```
 
 Example of how you would do it:
@@ -35,9 +37,9 @@ Example of how you would do it:
 if (ModLoader.TryGetMod("ColoredDamageTypes", out Mod coloreddamagetypes))
 {
 	//Color version
-	coloreddamagetypes.Call(ModContent.GetInstance<ExampleDamageClass>(), new Color(255, 210, 88), new Color(160, 155, 70), new Color(255, 165, 120));
+	coloreddamagetypes.Call("AddDamageType", ModContent.GetInstance<ExampleDamageClass>(), new Color(255, 210, 88), new Color(160, 155, 70), new Color(255, 165, 120));
 
 	//Tuple version
-	coloreddamagetypes.Call(ModContent.GetInstance<AnotherExampleDamageClass>(), (255, 30, 88), (50, 155, 70), (255, 165, 120)); 
+	coloreddamagetypes.Call("AddDamageType", ModContent.GetInstance<AnotherExampleDamageClass>(), (255, 30, 88), (50, 155, 70), (255, 165, 120)); 
 }
 ```
