@@ -23,7 +23,7 @@ This mod also supports custom [DamageClass](https://docs.tmodloader.net/html_alp
 
 To add support for your own mod's damage type, you simply need to reference my mod and call the following:
 ```cs
-Mod.Call(DamageClass DamageClassToBeAdded, Color TooltipColor, Color DamageColor, Color CritDamageColor)
+Mod.Call("AddDamageType", DamageClass DamageClassToBeAdded, Color TooltipColor, Color DamageColor, Color CritDamageColor)
 
 //Alternatively, the rgb values can simply be passed as a tuple.
 //First tuple is Tooltip color, 2nd is damage color, 3rd is crit damage color:
