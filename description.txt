@@ -10,6 +10,9 @@ Sentries: Purple
 Now has cross-mod support! For instructions on how to add your mod's damage type, check out the github:
 https://github.com/PvtFudgepants/Tmodloader-ColoredDamageText#cross-mod-compatibility
 
+v1.7.2
+-Fixed issue where some custom projectiles were causing errors.
+
 v1.7.1
 -Fixed error where tooltips weren't showing up in newest tmodloader version.
 -Added Mod.Call support to allow for other mods to add their own colors/support to this mod. 
@@ -17,45 +20,3 @@ v1.7.1
 v1.7.0
 -Updated to work with tModLoader 1.4 alpha. Let me know if there are any bugs, especially with the multiplayer as I didn't get to fully test that part.
 -The cross-mod support probably will NOT work even after the mods update. I'll need to see how they handle new damage types with the tModLoader changes.
-
-v1.6.0
--Added cross-mod support for Calamity, Redemption, Enigma, DBZ, Battle Rods, and Clicker Class damage types.
--Added toggle to disable damage numbers.
--Added toggle to disable other players damage numbers in multiplayer.
-
-v1.5.0
--Now works in multiplayer! Test it out and let me know if you run into any problems.
--Remade the config menu again. Tried to make it a little easier to get through.
-
-v1.4.0
--Finally got around to adding mod configuration through tmodloader.
-Old mod config files won't work, so unfortunately you'll need to redo your configs if you had changed anything.
-
-v1.3.0
--Added support for in game config reloading through Hamstar's Helpers mod.
--Split Sentries and Summons into 2 separate damage types w/different colors. Sentry damage is colored Purple.
--Added support for Alchemic damage type from Tremor. Alchemic damage is Dark Pink.
-
-v1.2.0
--The "True" damage type from Thorium mod is now added. True damage will be colored White/Gray.
--Adjusted the color of Symphonic damage type to make it stand out from Ranged damage more.
-
-v1.1.1
--Damage text for Radiant and Symphonic damage types will now properly change color.
--Known issue: Tooltips on Symphonic weapons do not change color. This will be fixed in a later update.
-
-v1.1.0
--Defense values on armor/accessories will now be colored gray.
--Now also changes the color of the text that shows when you deal damage to match the damage type of the weapon! 
-Note: Some projectile based weapons may show incorrect damage types. This needs to be manually changed for each individual projectile type. Please report any weapons that use incorrect colors.
-Thorium damage types are not yet supported with this, and will use different colors for Symphonic and Radiant damage until the mod is updated
--This mod will now create a config file when loaded for the first time. You can use this file to toggle tooltip or damage colorings, and set individual colors for each type! Supports rgb and hex colors!
-
-v1.0.3
--Now changes the text that pops up when you deal damage to also be colored based on the damage type.
-
-v1.0.2
--Now works properly with Thorium's flat damage modifying items.
-
-v1.0.1
--Now supports Symphonic and Radiant damage types from Thorium

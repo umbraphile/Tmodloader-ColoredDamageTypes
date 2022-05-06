@@ -17,7 +17,7 @@ namespace ColoredDamageTypes
 			{"Ballista", ModContent.GetInstance<SentryClass>() },
 			{"Pygmy", DamageClass.Summon },
 			{"Baby Spider", ModContent.GetInstance<SentryClass>() },
-			{"Molotov Fire", DamageClass.Throwing },
+			//{"Molotov Fire", DamageClass.Throwing },
 			{"UFO Ray", DamageClass.Summon }
 			//{"Influx Waver", Types.Melee },
 /*			{"SpiritMod.Projectiles.DonatorItems.FlambergeProjectile", Types.Melee },
@@ -262,10 +262,10 @@ namespace ColoredDamageTypes
 					}
 				}
 			}
-			if ( item != null ) { // Found item in inventory
+			/*if ( item != null ) { // Found item in inventory
 				return GetType(item);
 			}
-			else { // Didn't find item. Use projectile type
+			else { // Didn't find item. Use projectile type*/
 				int fromsummon = 0;
 
 				for ( int i = 0; i < 1000; i++ ) {
@@ -279,30 +279,6 @@ namespace ColoredDamageTypes
 						fromsummon = 1; // Is a minion
 						break;
 					}
-					/*
-					if ( ProjectilesThatInheritItemType.ContainsKey(CheckProjectile.Name) ) {
-						string MinionTypeToCheck = ProjectilesThatInheritItemType[CheckProjectile.Name];
-						for ( int ii = 0; ii < 1000; ii++ ) {
-							if ( !Main.projectile[ii].active || Main.projectile[ii].modProjectile == null ) continue;
-							ModProjectile CheckProjectile2 = Main.projectile[ii].modProjectile;
-							//Main.NewText(CheckProjectile.Name);
-							if ( fromsummon > 0 ) break;
-							if ( CheckProjectile2.GetType().ToString().Equals(MinionTypeToCheck) ) {
-								ColoredDamageTypes.Log(CheckProjectile2.GetType().ToString() + " == " + MinionTypeToCheck + "?");
-								ColoredDamageTypes.Log("Yes");
-
-								if ( CheckProjectile2.projectile.sentry ) {
-									fromsummon = 2; // Is a sentry
-									break;
-								}
-								else if ( CheckProjectile2.projectile.minion ) {
-									fromsummon = 1; // Is a minion
-									break;
-								}
-							}
-						}
-					}
-					*/
 				}
 
 
@@ -318,7 +294,7 @@ namespace ColoredDamageTypes
 				{
 					foreach (DamageClass dc in DamageTypes.DamageClasses)
 					{
-						if (item.CountsAsClass(dc))
+						if (projectile.CountsAsClass(dc))
 						{
 							return dc;
 						}
@@ -326,7 +302,7 @@ namespace ColoredDamageTypes
 				}
 
 				return DamageClass.Generic;
-			}
+			//}
 		}
 
 		public static void ProjectileTypeCheck(Projectile projectile, Item item, ref Item returnitem) {

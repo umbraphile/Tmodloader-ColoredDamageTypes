@@ -67,7 +67,7 @@ namespace ColoredDamageTypes
 
 						DamageTypes.DamageClasses.Add(dc);
 					}
-					if (args[2] is (int r1, int g1, int b1) && args[3] is (int r2, int g2, int b2) && args[4] is (int r3, int g3, int b3))
+					else if (args[2] is (int r1, int g1, int b1) && args[3] is (int r2, int g2, int b2) && args[4] is (int r3, int g3, int b3))
 					{
 						string dcname = dc.ToString();
 						zCrossModConfig.DamageType dt = new zCrossModConfig.DamageType(dcname, new Color(r1, g1, b1), new Color(r2, g2, b2), new Color(r3, g3, b3));
