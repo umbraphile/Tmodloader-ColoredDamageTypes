@@ -36,6 +36,7 @@ namespace ColoredDamageTypes
 					int hitdir = (reader.ReadByte() - 1); // hit direction
 					byte critbyte = reader.ReadByte();
 					bool crit = critbyte == 1;
+					//fileStream.Seek(filestream.Position - 5, SeekOrigin.Begin);
 
 					if (Config.Instance.DebugModeMultiplayer)
 					{
@@ -126,6 +127,3 @@ namespace ColoredDamageTypes
 		}
 	}
 }
-
-
-//TODO, SOMETHING IS LETTING MINIONS CRIT

@@ -50,6 +50,12 @@ namespace ColoredDamageTypes
 							}
                             else if (dmgtype != DamageClass.Generic)
                             {
+								//ColoredDamageTypes.Log(dmgtype.ToString());
+								//ColoredDamageTypes.Log("Dictionary contains:");
+								foreach(KeyValuePair<string, zCrossModConfig.DamageType> kp in zCrossModConfig.Instance.CrossModDamageConfig)
+                                {
+									ColoredDamageTypes.Log(kp.Key);
+                                }
 								newcolor = zCrossModConfig.Instance.CrossModDamageConfig[dmgtype.ToString()].TooltipColor;
                             }
 

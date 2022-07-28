@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
-using System.Reflection;
 using Microsoft.Xna.Framework;
+using System.Reflection;
 
 namespace ColoredDamageTypes
 {
 	class DamageTypes {
+
+		//public static List<DamageClass> ModdedTypes = new List<DamageClass>();
+
 		public static Dictionary<string, DamageClass> ProjectileOverrideList = new Dictionary<string, DamageClass>() {
 			{"Solar Eruption", DamageClass.Melee },
 			{"Ballista", ModContent.GetInstance<SentryClass>() },

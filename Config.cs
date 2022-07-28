@@ -13,6 +13,7 @@ namespace ColoredDamageTypes
 
 	[Label("Config")]
 	class Config : ModConfig {
+		public static zCrossModConfig crossModInstance;
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 		public static Config Instance;
 
@@ -261,8 +262,13 @@ namespace ColoredDamageTypes
 				TooltipColor = defaulttt;
 				DamageColor = defaultdmg;
 				CritDamageColor = defaultcrit;
-				if(s != null)
+				if(s != null && s.Contains('/'))
                 {
+					string[] ssplit = s.Split('/');
+					dtname = ssplit[ssplit.Length-1];
+				}
+				else if (s != null && s.Contains('.'))
+				{
 					string[] ssplit = s.Split('.');
 					dtname = ssplit[ssplit.Length - 1];
 				}
@@ -287,15 +293,22 @@ namespace ColoredDamageTypes
         }
 
         public override void OnChanged()
+		{
+			//this.CrossModDamageConfig = new Dictionary<string, zCrossModConfig.DamageType>(zCrossModConfig.CrossModDamageConfig_Orig);
+			base.OnChanged();
+        }
+
+        public override void OnLoaded()
         {
-            base.OnChanged();
+			ColoredDamageTypes.Log("Loaded config");
+			Config.crossModInstance = this;
+            base.OnLoaded();
         }
         public zCrossModConfig()
 		{
-
+			//DoMenuModeState()
 			CrossModDamageConfig = new Dictionary<string, DamageType>(CrossModDamageConfig_Orig);
-
-            /*string modname = "ExampleMod";
+			/*string modname = "ExampleMod";
             DamageClass dc = DamageClass.Summon;
             if (ModLoader.TryGetMod(modname, out ColoredDamageTypes.ExampleMod))
             {
@@ -319,7 +332,7 @@ namespace ColoredDamageTypes
                 //typeslist.Add(new zCrossModConfig.DamageType(ex1type,ex1tooltipcolor,ex1dmgcolor,ex1critcolor));
                 //CrossModConfigs.Add("ExampleMod", new CrossModConfig(list));
             }*/
-        }
+		}
 	}
 
 }

@@ -8,7 +8,10 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
+using Terraria.ModLoader.UI;
 using Terraria.Localization;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace ColoredDamageTypes
 {
@@ -27,7 +30,6 @@ namespace ColoredDamageTypes
 		{
 			instance = this;
 		}
-
 
 		public static void Log(object message, params object[] formatData)
 		{
@@ -81,5 +83,45 @@ namespace ColoredDamageTypes
 
 			return this;
 		}
+        public override void PostSetupContent()
+        {
+			LoadModdedDamageTypes();
+			Config.crossModInstance.CrossModDamageConfig = new Dictionary<string, zCrossModConfig.DamageType>(zCrossModConfig.CrossModDamageConfig_Orig);
+			
+
+		}
+
+		public static void LoadModdedDamageTypes()
+		{
+			List<DamageClass> DefaultTypes = new List<DamageClass>();
+			DefaultTypes.Add(DamageClass.Default);
+			DefaultTypes.Add(DamageClass.Melee);
+			DefaultTypes.Add(DamageClass.Magic);
+			DefaultTypes.Add(DamageClass.Ranged);
+			DefaultTypes.Add(DamageClass.Generic);
+			DefaultTypes.Add(DamageClass.MagicSummonHybrid);
+			DefaultTypes.Add(DamageClass.MeleeNoSpeed);
+			DefaultTypes.Add(DamageClass.Summon);
+			DefaultTypes.Add(DamageClass.SummonMeleeSpeed);
+			DefaultTypes.Add(DamageClass.Throwing);
+			for (int i = 0; i < ItemLoader.ItemCount; i++)
+            {
+				Item itemToCheck = new Item();
+				itemToCheck.SetDefaults(i, true);
+
+				if (!DefaultTypes.Contains(itemToCheck.DamageType) && !DamageTypes.DamageClasses.Contains(itemToCheck.DamageType))
+                {
+					ColoredDamageTypes.Log("Found modded damage type! " + itemToCheck.DamageType.FullName.ToString());
+
+					string dcname = itemToCheck.DamageType.ToString();
+					zCrossModConfig.DamageType dt = new zCrossModConfig.DamageType(dcname, new Color(255, 255, 255), new Color(255, 160, 80), new Color(255, 100, 30));
+					zCrossModConfig.CrossModDamageConfig_Orig.Add(dcname, dt);
+
+					DamageTypes.DamageClasses.Add(itemToCheck.DamageType);
+				}
+            }
+		}
+
+
 	}
 }
