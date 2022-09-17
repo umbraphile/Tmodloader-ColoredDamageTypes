@@ -45,7 +45,9 @@ namespace ColoredDamageTypes
 		[DefaultValue(true)]
 		public bool ShowMultiplayerDamageNumbers { get; set; }
 
-		[Label("Condense damage numbers (Leave on 0 to disable) (EXPERIMENTAL)")]
+		[Header("Condense Damage Settings (EXPERIMENTAL)")]
+
+		[Label("Condense damage numbers (Leave on 0 to disable)")]
 		[Tooltip("Numbers will only show up after this number of hits, showing a total of previous hits.")]
 		[DefaultValue(0)]
 		public int CondenseDamageHits { get; set; }
