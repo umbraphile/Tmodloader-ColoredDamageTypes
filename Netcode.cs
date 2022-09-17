@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using System.IO;
 using Terraria.ID;
-
+using Microsoft.Xna.Framework;
 
 namespace ColoredDamageTypes
 {
@@ -36,6 +36,7 @@ namespace ColoredDamageTypes
 					int hitdir = (reader.ReadByte() - 1); // hit direction
 					byte critbyte = reader.ReadByte();
 					bool crit = critbyte == 1;
+					//fileStream.Seek(filestream.Position - 5, SeekOrigin.Begin);
 
 					if (Config.Instance.DebugModeMultiplayer)
 					{
@@ -95,8 +96,46 @@ namespace ColoredDamageTypes
 							{
 								intype = DamageTypes.DamageClasses[recentcolor_in - 8];
 							}
-							Main.combatText[recent].color = DamageTypes.CheckDamageColor(intype, crit, sentrycheck) * 0.4f;
-							Main.combatText[recent].active = Config.Instance.ShowMultiplayerDamageNumbers;
+
+							Color newcolor = DamageTypes.CheckDamageColor(intype, crit, sentrycheck) * 0.4f;
+							CombatText recentct = Main.combatText[recent];
+
+							recentct.color = newcolor;
+							if (Config.Instance.ShowMultiplayerDamageNumbers == false)
+							{
+								recentct.active = false;
+								return true;
+							}
+							String dmgtypeString = intype.ToString();
+
+
+							string npcIDString = npc.FullName + " " + npc.whoAmI;
+
+							if (!ColoredDamageTypes.condense_totals.ContainsKey(npcIDString)) ColoredDamageTypes.condense_totals.Add(npcIDString, new Dictionary<string, int[]>());
+							if (!ColoredDamageTypes.condense_totals[npcIDString].ContainsKey(dmgtypeString)) ColoredDamageTypes.condense_totals[npcIDString].Add(dmgtypeString, new int[] { 0, 0 });
+
+							ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][0] += damage;
+							if (Config.Instance.CondenseDamageHits > 0)
+							{
+								if (ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][1] < Config.Instance.CondenseDamageHits && npc.active)
+								{
+									ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][1]++;
+									recentct.active = false;
+								}
+								else
+								{
+									recentct.text = ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][0].ToString();
+									ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][0] = 0;
+									ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][1] = 0;
+
+									if (!npc.active && !Config.Instance.ShowCondenseDamageOnKill)
+									{
+										recentct.active = false;
+										ColoredDamageTypes.condense_totals[npcIDString].Clear();
+										ColoredDamageTypes.condense_totals.Remove(npcIDString);
+									}
+								}
+							}
 						}
 						return true;
 					}
@@ -126,6 +165,3 @@ namespace ColoredDamageTypes
 		}
 	}
 }
-
-
-//TODO, SOMETHING IS LETTING MINIONS CRIT

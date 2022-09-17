@@ -12,26 +12,18 @@ namespace ColoredDamageTypes
 
 
 	[Label("Config")]
-	class Config : ModConfig {
+	class Config : ModConfig
+	{
+		public static zCrossModConfig crossModInstance;
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 		public static Config Instance;
 
-        /*public override void OnLoaded()
+		/*public override void OnLoaded()
         {
 			Instance = this;
 		}*/
 
-        [Header("Toggles")]
-
-		[Label("Show damage numbers")]
-		[Tooltip("Show/Hide all damage numbers")]
-		[DefaultValue(true)]
-		public bool ShowDamageNumbers { get; set; }
-
-		[Label("Show other players damage numbers in multiplayer")]
-		[Tooltip("Show/Hide other players damage numbers in multiplayer")]
-		[DefaultValue(true)]
-		public bool ShowMultiplayerDamageNumbers { get; set; }
+		[Header("Toggles")]
 
 		[Label("Change Tooltip Color")]
 		[Tooltip("Allows the mod to change the color of some tooltip text when hovering over items.")]
@@ -43,7 +35,27 @@ namespace ColoredDamageTypes
 		[DefaultValue(true)]
 		public bool ChangeDamageColor { get; set; }
 
-		[Header("Debug Settings (Please Ignore)")]
+		[Label("Show damage numbers")]
+		[Tooltip("Show/Hide all damage numbers")]
+		[DefaultValue(true)]
+		public bool ShowDamageNumbers { get; set; }
+
+		[Label("Show other players damage numbers in multiplayer")]
+		[Tooltip("Show/Hide other players damage numbers in multiplayer")]
+		[DefaultValue(true)]
+		public bool ShowMultiplayerDamageNumbers { get; set; }
+
+		[Label("Condense damage numbers (Leave on 0 to disable) (EXPERIMENTAL)")]
+		[Tooltip("Numbers will only show up after this number of hits, showing a total of previous hits.")]
+		[DefaultValue(0)]
+		public int CondenseDamageHits { get; set; }
+
+		[Label("Always show condensed damage on kill")]
+		[Tooltip("Makes damage number always show up on a kill.")]
+		[DefaultValue(true)]
+		public bool ShowCondenseDamageOnKill { get; set; }
+
+		[Header("Debug Settings. Ignore unless you know what you're doing.")]
 		[Label("Debug Mode")]
 		[Tooltip("Don't turn on.")]
 		[DefaultValue(false)]
@@ -64,17 +76,19 @@ namespace ColoredDamageTypes
 		[DefaultValue(false)]
 		public bool DebugModeMultiplayer { get; set; }
 
-		
+
 	}
 	[Label("Tooltips Config")]
-	class TooltipsConfig : ModConfig {
+	class TooltipsConfig : ModConfig
+	{
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 		public static TooltipsConfig Instance = new TooltipsConfig();
 
 		[Header("Tooltip Colors")]
 		[Label("Vanilla")]
 		public Vanilla VanillaTT = new Vanilla();
-		public class Vanilla {
+		public class Vanilla
+		{
 
 			[Label("Defense")]
 			[Tooltip("Color of the defense tooltip on armor")]
@@ -121,7 +135,8 @@ namespace ColoredDamageTypes
 		}
 	}
 	[Label("Damage Config")]
-	class DamageConfig : ModConfig {
+	class DamageConfig : ModConfig
+	{
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 		public static DamageConfig Instance = new DamageConfig();
 
@@ -261,8 +276,13 @@ namespace ColoredDamageTypes
 				TooltipColor = defaulttt;
 				DamageColor = defaultdmg;
 				CritDamageColor = defaultcrit;
-				if(s != null)
-                {
+				if (s != null && s.Contains('/'))
+				{
+					string[] ssplit = s.Split('/');
+					dtname = ssplit[ssplit.Length - 1];
+				}
+				else if (s != null && s.Contains('.'))
+				{
 					string[] ssplit = s.Split('.');
 					dtname = ssplit[ssplit.Length - 1];
 				}
@@ -284,18 +304,25 @@ namespace ColoredDamageTypes
 			public Color CritDamageColor = new Color(155, 140, 200, 255);
 
 
-        }
+		}
 
-        public override void OnChanged()
-        {
-            base.OnChanged();
-        }
-        public zCrossModConfig()
+		public override void OnChanged()
 		{
+			//this.CrossModDamageConfig = new Dictionary<string, zCrossModConfig.DamageType>(zCrossModConfig.CrossModDamageConfig_Orig);
+			base.OnChanged();
+		}
 
+		public override void OnLoaded()
+		{
+			ColoredDamageTypes.Log("Loaded config");
+			Config.crossModInstance = this;
+			base.OnLoaded();
+		}
+		public zCrossModConfig()
+		{
+			//DoMenuModeState()
 			CrossModDamageConfig = new Dictionary<string, DamageType>(CrossModDamageConfig_Orig);
-
-            /*string modname = "ExampleMod";
+			/*string modname = "ExampleMod";
             DamageClass dc = DamageClass.Summon;
             if (ModLoader.TryGetMod(modname, out ColoredDamageTypes.ExampleMod))
             {
@@ -303,10 +330,7 @@ namespace ColoredDamageTypes
                 Color ex1dmgcolor = new Color(155, 0, 200, 255);
                 Color ex1tooltipcolor = new Color(0, 140, 200, 255);
                 string dcname = dc.ToString();
-
-
                 string dcname2 = DamageClass.Magic.ToString();
-
                 List<zCrossModConfig.DamageType> typeslist;
                 if (!CrossModDamageConfig.ContainsKey(dcname))
                 {
@@ -319,7 +343,7 @@ namespace ColoredDamageTypes
                 //typeslist.Add(new zCrossModConfig.DamageType(ex1type,ex1tooltipcolor,ex1dmgcolor,ex1critcolor));
                 //CrossModConfigs.Add("ExampleMod", new CrossModConfig(list));
             }*/
-        }
+		}
 	}
 
 }

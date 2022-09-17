@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "PnN1gjGviLNDAfQ7+VU17kFhKo7WUUpZNVFO+gaS2mvmZI5UNBTHUdJso3SHqz386jPSn21ShrU0fMSK4dTe0Q==",
+  "dgSpecHash": "CgLRiW+Uny+jki8xgXZIp4UuKHmZ/WoP6HBUVFpEFAeV+PanwP/htivVNU25CtR+H/c/6d3efaR9Em67mQGcKA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\PC\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ColoredDamageTypes\\ColoredDamageTypes.csproj",
+  "projectFilePath": "C:\\Users\\Pvtfu\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ColoredDamageTypes\\ColoredDamageTypes.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\PC\\.nuget\\packages\\tmodloader.codeassist\\0.1.3\\tmodloader.codeassist.0.1.3.nupkg.sha512"
+    "C:\\Users\\Pvtfu\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
   ],
   "logs": []
 }

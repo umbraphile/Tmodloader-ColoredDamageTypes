@@ -43,8 +43,41 @@ namespace ColoredDamageTypes
 
 				newcolor = DamageTypes.CheckDamageColor(dmgtype, crit, item.sentry);
 
-				Main.combatText[recent].color = newcolor;
-				Main.combatText[recent].active = Config.Instance.ShowDamageNumbers;
+				String dmgtypeString = dmgtype.ToString();
+				CombatText recentct = Main.combatText[recent];
+				recentct.color = newcolor;
+				if(Config.Instance.ShowDamageNumbers == false)
+				{
+					recentct.active = false;
+					return;
+				}
+				string npcIDString = npc.FullName + " " + npc.whoAmI;
+
+				if (!ColoredDamageTypes.condense_totals.ContainsKey(npcIDString)) ColoredDamageTypes.condense_totals.Add(npcIDString, new Dictionary<string, int[]>());
+				if (!ColoredDamageTypes.condense_totals[npcIDString].ContainsKey(dmgtypeString)) ColoredDamageTypes.condense_totals[npcIDString].Add(dmgtypeString, new int[] { 0, 0 });
+
+				ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][0] += damage;
+				if (Config.Instance.CondenseDamageHits > 0)
+				{
+					if (ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][1] < Config.Instance.CondenseDamageHits && npc.active)
+					{
+						ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][1]++;
+						recentct.active = false;
+					}
+					else
+					{
+						recentct.text = ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][0].ToString();
+						ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][0] = 0;
+						ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][1] = 0;
+
+						if (!npc.active && !Config.Instance.ShowCondenseDamageOnKill)
+						{
+							recentct.active = false;
+							ColoredDamageTypes.condense_totals[npcIDString].Clear();
+							ColoredDamageTypes.condense_totals.Remove(npcIDString);
+						}
+					}
+				}
 			}
 		}
 
@@ -74,13 +107,42 @@ namespace ColoredDamageTypes
 
 				newcolor = DamageTypes.CheckDamageColor(dmgtype, crit, projectile.sentry);
 
-				//Main.combatText[recent].active = false;
-				//Main.combatText[recent].lifeTime = 0;
-				//CombatText.NewText(new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height), newcolor, damage, crit, false);
-				//NetMessage.SendData
-				//ColoredDamageTypes.instance.SendColorPacket(newcolor.R, newcolor.G, newcolor.B, newcolor.A, damage, crit);
-				Main.combatText[recent].color = newcolor;
-				Main.combatText[recent].active = Config.Instance.ShowDamageNumbers;
+
+				String dmgtypeString = dmgtype.ToString();
+				CombatText recentct = Main.combatText[recent];
+				recentct.color = newcolor;
+				if (Config.Instance.ShowDamageNumbers == false)
+				{
+					recentct.active = false;
+					return;
+				}
+				string npcIDString = npc.FullName + " " + npc.whoAmI;
+
+				if (!ColoredDamageTypes.condense_totals.ContainsKey(npcIDString)) ColoredDamageTypes.condense_totals.Add(npcIDString, new Dictionary<string, int[]>());
+                if (!ColoredDamageTypes.condense_totals[npcIDString].ContainsKey(dmgtypeString)) ColoredDamageTypes.condense_totals[npcIDString].Add(dmgtypeString, new int[] { 0, 0 });
+
+				ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][0] += damage;
+				if (Config.Instance.CondenseDamageHits > 0)
+				{
+					if (ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][1] < Config.Instance.CondenseDamageHits && npc.active)
+					{
+						ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][1]++;
+						recentct.active = false;
+					}
+					else
+					{
+						recentct.text = ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][0].ToString();
+						ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][0] = 0;
+						ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][1] = 0;
+
+						if (!npc.active && !Config.Instance.ShowCondenseDamageOnKill)
+						{
+							recentct.active = false;
+							ColoredDamageTypes.condense_totals[npcIDString].Clear();
+							ColoredDamageTypes.condense_totals.Remove(npcIDString);
+						}
+					}
+				}
 			}
 		}
 
