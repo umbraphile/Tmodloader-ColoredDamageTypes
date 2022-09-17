@@ -1,26 +1,8 @@
 Colored damage types changes the tooltip and damage text of weapons to be colored, so that it's easier to quickly tell what kind of damage the weapon deals at a glance.
 
-Melee: Red
-Ranged: Green
-Magic: Blue
-Thrown: Brown
-Summon: Pink
-Sentries: Purple
-
 Now has cross-mod support! For instructions on how to add your mod's damage type, check out the github:
 https://github.com/PvtFudgepants/Tmodloader-ColoredDamageText#cross-mod-compatibility
 
 v1.8
 -Modded damage types will now be detected automatically. Mod creators can still specify their own colors, but this well let you customize colors that haven't set up the cross mod support yet as well.
 -New EXPERIMENTAL feature: Condensed Damage! With this setting enabled in the mod settings, you can set it so that your damage numbers only pop up every few hits, with a number totaling all the previous hits.
-
-v1.7.2
--Fixed issue where some custom projectiles were causing errors.
-
-v1.7.1
--Fixed error where tooltips weren't showing up in newest tmodloader version.
--Added Mod.Call support to allow for other mods to add their own colors/support to this mod. 
-
-v1.7.0
--Updated to work with tModLoader 1.4 alpha. Let me know if there are any bugs, especially with the multiplayer as I didn't get to fully test that part.
--The cross-mod support probably will NOT work even after the mods update. I'll need to see how they handle new damage types with the tModLoader changes.
