@@ -64,21 +64,47 @@ namespace ColoredDamageTypes
             {
 				if (args[1] is DamageClass dc)
 				{
-					if (args[2] is Color ttcolor && args[3] is Color dmgcolor && args[4] is Color critdmgcolor)
+					if (!DamageTypes.DamageClasses.Contains(dc))
 					{
-						string dcname = dc.ToString();
-						zCrossModConfig.DamageType dt = new zCrossModConfig.DamageType(dcname, ttcolor, dmgcolor, critdmgcolor);
-						zCrossModConfig.CrossModDamageConfig_Orig.Add(dcname, dt);
+						if (args[2] is Color ttcolor && args[3] is Color dmgcolor && args[4] is Color critdmgcolor)
+						{
+							string dcname = dc.ToString();
+							zCrossModConfig.DamageType dt = new zCrossModConfig.DamageType(dcname, ttcolor, dmgcolor, critdmgcolor);
+							zCrossModConfig.CrossModDamageConfig_Orig.Add(dcname, dt);
 
-						DamageTypes.DamageClasses.Add(dc);
+							DamageTypes.DamageClasses.Add(dc);
+							ColoredDamageTypes.Log("Added Cross-mod type: " + dcname);
+						}
+						else if (args[2] is (int r1, int g1, int b1) && args[3] is (int r2, int g2, int b2) && args[4] is (int r3, int g3, int b3))
+						{
+							string dcname = dc.ToString();
+							zCrossModConfig.DamageType dt = new zCrossModConfig.DamageType(dcname, new Color(r1, g1, b1), new Color(r2, g2, b2), new Color(r3, g3, b3));
+							zCrossModConfig.CrossModDamageConfig_Orig.Add(dcname, dt);
+
+							DamageTypes.DamageClasses.Add(dc);
+							ColoredDamageTypes.Log("Added Cross-mod type: " + dcname);
+						}
 					}
-					else if (args[2] is (int r1, int g1, int b1) && args[3] is (int r2, int g2, int b2) && args[4] is (int r3, int g3, int b3))
+                    else
 					{
-						string dcname = dc.ToString();
-						zCrossModConfig.DamageType dt = new zCrossModConfig.DamageType(dcname, new Color(r1, g1, b1), new Color(r2, g2, b2), new Color(r3, g3, b3));
-						zCrossModConfig.CrossModDamageConfig_Orig.Add(dcname, dt);
+						ColoredDamageTypes.Log("Cross-mod type already exists, changing default colors provided by mod. " + dc.ToString());
 
-						DamageTypes.DamageClasses.Add(dc);
+						if (args[2] is Color ttcolor && args[3] is Color dmgcolor && args[4] is Color critdmgcolor)
+						{
+							string dcname = dc.ToString();
+							zCrossModConfig.CrossModDamageConfig_Orig[dcname].TooltipColor = ttcolor;
+							zCrossModConfig.CrossModDamageConfig_Orig[dcname].DamageColor = dmgcolor;
+							zCrossModConfig.CrossModDamageConfig_Orig[dcname].CritDamageColor = critdmgcolor;
+
+						}
+						else if (args[2] is (int r1, int g1, int b1) && args[3] is (int r2, int g2, int b2) && args[4] is (int r3, int g3, int b3))
+						{
+							string dcname = dc.ToString();
+							zCrossModConfig.CrossModDamageConfig_Orig[dcname].TooltipColor = new Color(r1, g1, b1);
+							zCrossModConfig.CrossModDamageConfig_Orig[dcname].DamageColor = new Color(r2, g2, b2);
+							zCrossModConfig.CrossModDamageConfig_Orig[dcname].CritDamageColor = new Color(r3, g3, b3);
+
+						}
 					}
 				}
 			}
