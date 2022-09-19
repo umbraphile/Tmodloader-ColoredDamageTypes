@@ -3,6 +3,9 @@ Colored damage types changes the tooltip and damage text of weapons to be colore
 Now has cross-mod support! For instructions on how to add your mod's damage type, check out the github:
 https://github.com/PvtFudgepants/Tmodloader-ColoredDamageText#cross-mod-compatibility
 
+v1.8.1
+-Fixed crash if other mod tried to add cross mod compat. AFTER this mod was loaded.
+
 v1.8
 -Modded damage types will now be detected automatically. Mod creators can still specify their own colors, but this well let you customize colors that haven't set up the cross mod support yet as well.
 -New EXPERIMENTAL feature: Condensed Damage! With this setting enabled in the mod settings, you can set it so that your damage numbers only pop up every few hits, with a number totaling all the previous hits.
