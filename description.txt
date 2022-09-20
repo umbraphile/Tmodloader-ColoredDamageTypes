@@ -3,6 +3,10 @@ Colored damage types changes the tooltip and damage text of weapons to be colore
 Now has cross-mod support! For instructions on how to add your mod's damage type, check out the github:
 https://github.com/PvtFudgepants/Tmodloader-ColoredDamageText#cross-mod-compatibility
 
+v1.8.2
+-Added failsafe in case colors won't load correctly. Tooltips will still display.
+-Made the colors priotize modded damage types. So if a mod is marked as both "Magic" and "NewDamageType", it'll show the NewDamageType color instead of Magic.
+
 v1.8.1
 -Fixed crash if other mod tried to add cross mod compat. AFTER this mod was loaded.
 

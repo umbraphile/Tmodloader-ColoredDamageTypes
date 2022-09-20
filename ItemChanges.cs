@@ -48,19 +48,26 @@ namespace ColoredDamageTypes
 								if(item.sentry) newcolor = TooltipsConfig.Instance.VanillaTT.TooltipSentry;
 								else newcolor = TooltipsConfig.Instance.VanillaTT.TooltipSummon;
 							}
-                            else if (dmgtype != DamageClass.Generic)
+                            else if (dmgtype != DamageClass.Generic && zCrossModConfig.Instance.CrossModDamageConfig.ContainsKey(dmgtype.ToString()))
                             {
 								//ColoredDamageTypes.Log(dmgtype.ToString());
 								//ColoredDamageTypes.Log("Dictionary contains:");
-								foreach(KeyValuePair<string, zCrossModConfig.DamageType> kp in zCrossModConfig.Instance.CrossModDamageConfig)
-                                {
-									ColoredDamageTypes.Log(kp.Key);
-                                }
 								newcolor = zCrossModConfig.Instance.CrossModDamageConfig[dmgtype.ToString()].TooltipColor;
                             }
 
 							break;
 					}
+
+					if (Config.Instance.DebugMode && Config.Instance.DebugModeTooltips)
+					{
+						ColoredDamageTypes.Log("Item: " + item.Name);
+						ColoredDamageTypes.Log("DmgType: " + item.DamageType);
+						foreach (KeyValuePair<string, zCrossModConfig.DamageType> kp in zCrossModConfig.Instance.CrossModDamageConfig)
+						{
+							ColoredDamageTypes.Log(kp.Key);
+						}
+					}
+
 					if ( newcolor != Color.White ) tooltip.OverrideColor = newcolor;
 				}
 			}

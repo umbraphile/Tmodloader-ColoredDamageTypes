@@ -197,43 +197,21 @@ namespace ColoredDamageTypes
                 }
             }
 
-
-			/*//OrchidMod Check
-			if ( ColoredDamageTypes.OrchidMod != null && mitem != null && mitem.mod == ColoredDamageTypes.OrchidMod ) {
-				Type mprojtype = mitem.GetType();
-				string typestr = mprojtype.ToString();
-				if ( typestr.Contains("OrchidMod.Shaman.Weapons") || typestr.Contains("OrchidMod.Shaman.Projectiles") ) return Types.Shamanic;
+			
+			foreach (DamageClass dc in DamageTypes.DamageClasses)
+			{
+				if (item.CountsAsClass(dc))
+				{
+					return dc;
+				}
 			}
-			*/
-
-
-			/*
-			if (ColoredDamageTypes.TremorMod != null && mitem != null && mitem.mod == ColoredDamageTypes.TremorMod) {
-				Type mitemType = mitem.GetType();
-				string mitemTypestr = mitemType.ToString();
-				bool isAlchemic = mitemTypestr.Contains("Alchemist.") || mitemTypestr.Contains("Alchemic.") || mitemTypestr.Contains("NovaPillar.");
-				if (mitemType != null && isAlchemic == true) return Types.Alchemic;
-			}
-			*/
-
 			if (item.CountsAsClass(DamageClass.Melee) && !item.CountsAsClass(DamageClass.Magic) && !item.CountsAsClass(DamageClass.Throwing)) return DamageClass.Melee;
 			else if (item.CountsAsClass(DamageClass.Ranged) && !item.CountsAsClass(DamageClass.Magic) && !item.CountsAsClass(DamageClass.Throwing)) return DamageClass.Ranged;
 			else if (item.CountsAsClass(DamageClass.Magic)) return DamageClass.Magic;
 			else if (item.CountsAsClass(DamageClass.Throwing)) return DamageClass.Throwing;
 			else if (item.CountsAsClass(DamageClass.Summon)) return DamageClass.Summon;
 			else if (item.CountsAsClass(DamageClass.SummonMeleeSpeed)) return DamageClass.Summon;
-			else
-			{
-				foreach (DamageClass dc in DamageTypes.DamageClasses)
-				{
-					if (item.CountsAsClass(dc))
-					{
-						return dc;
-					}
-				}
-			}
-
-			return DamageClass.Generic;
+			else return DamageClass.Generic;
 		}
 
 		public static DamageClass GetType(Projectile projectile) {
@@ -284,7 +262,13 @@ namespace ColoredDamageTypes
 					}
 				}
 
-
+				foreach (DamageClass dc in DamageTypes.DamageClasses)
+				{
+					if (projectile.CountsAsClass(dc))
+					{
+						return dc;
+					}
+				}
 				if ( fromsummon == 2 || projectile.sentry ) return ModContent.GetInstance<SentryClass>();
 				if ( fromsummon == 1 || projectile.minion ) return DamageClass.Summon;
 				else if ( projectile.CountsAsClass(DamageClass.Melee) && !projectile.CountsAsClass(DamageClass.Magic) && !projectile.CountsAsClass(DamageClass.Throwing) && !projectile.minion && !projectile.sentry ) return DamageClass.Melee;
@@ -293,18 +277,7 @@ namespace ColoredDamageTypes
 				else if ( projectile.CountsAsClass(DamageClass.Throwing) && !projectile.minion && !projectile.sentry ) return DamageClass.Throwing;
 				else if ( projectile.CountsAsClass(DamageClass.Summon)) return DamageClass.Summon;
 				else if ( projectile.CountsAsClass(DamageClass.SummonMeleeSpeed)) return DamageClass.Summon;
-				else
-				{
-					foreach (DamageClass dc in DamageTypes.DamageClasses)
-					{
-						if (projectile.CountsAsClass(dc))
-						{
-							return dc;
-						}
-					}
-				}
-
-				return DamageClass.Generic;
+				else return DamageClass.Generic;
 			//}
 		}
 

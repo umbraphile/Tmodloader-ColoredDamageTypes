@@ -1,5 +1,5 @@
 author = PvtFudgepants
-version = 1.8.1
+version = 1.8.2
 displayName = Colored Damage Types
 homepage = https://forums.terraria.org/index.php?threads/pvt-fudgepantss-mods.59971/
 hideCode = true
