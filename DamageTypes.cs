@@ -198,13 +198,24 @@ namespace ColoredDamageTypes
             }
 
 			
+			DamageClass backupdc = null;
+			DamageClass returndc = null;
 			foreach (DamageClass dc in DamageTypes.DamageClasses)
 			{
+				if (item.DamageType.ToString() == dc.ToString())
+				{
+					returndc = dc;
+					break;
+				}
 				if (item.CountsAsClass(dc))
 				{
-					return dc;
+					backupdc = dc;
 				}
 			}
+			if (returndc != null) return returndc;
+			if (backupdc != null) return backupdc;
+
+
 			if (item.CountsAsClass(DamageClass.Melee) && !item.CountsAsClass(DamageClass.Magic) && !item.CountsAsClass(DamageClass.Throwing)) return DamageClass.Melee;
 			else if (item.CountsAsClass(DamageClass.Ranged) && !item.CountsAsClass(DamageClass.Magic) && !item.CountsAsClass(DamageClass.Throwing)) return DamageClass.Ranged;
 			else if (item.CountsAsClass(DamageClass.Magic)) return DamageClass.Magic;
@@ -247,37 +258,46 @@ namespace ColoredDamageTypes
 				return GetType(item);
 			}
 			else { // Didn't find item. Use projectile type*/
-				int fromsummon = 0;
+			int fromsummon = 0;
 
-				for ( int i = 0; i < 1000; i++ ) {
-					Projectile CheckProjectile = Main.projectile[i];
+			for ( int i = 0; i < 1000; i++ ) {
+				Projectile CheckProjectile = Main.projectile[i];
 
-					if ( CheckProjectile.active && (CheckProjectile.sentry) && CheckProjectile.type + 1 == projectile.type ) {
-						fromsummon = 2; // Is a sentry
-						break;
-					}
-					else if ( CheckProjectile.active && (CheckProjectile.minion) && CheckProjectile.type + 1 == projectile.type ) {
-						fromsummon = 1; // Is a minion
-						break;
-					}
+				if ( CheckProjectile.active && (CheckProjectile.sentry) && CheckProjectile.type + 1 == projectile.type ) {
+					fromsummon = 2; // Is a sentry
+					break;
 				}
+				else if ( CheckProjectile.active && (CheckProjectile.minion) && CheckProjectile.type + 1 == projectile.type ) {
+					fromsummon = 1; // Is a minion
+					break;
+				}
+			}
 
-				foreach (DamageClass dc in DamageTypes.DamageClasses)
+			DamageClass backupdc = null;
+			DamageClass returndc = null;
+			foreach (DamageClass dc in DamageTypes.DamageClasses) {
+				if (projectile.DamageType.ToString() == dc.ToString())
 				{
-					if (projectile.CountsAsClass(dc))
-					{
-						return dc;
-					}
+					returndc = dc;
+					break;
 				}
-				if ( fromsummon == 2 || projectile.sentry ) return ModContent.GetInstance<SentryClass>();
-				if ( fromsummon == 1 || projectile.minion ) return DamageClass.Summon;
-				else if ( projectile.CountsAsClass(DamageClass.Melee) && !projectile.CountsAsClass(DamageClass.Magic) && !projectile.CountsAsClass(DamageClass.Throwing) && !projectile.minion && !projectile.sentry ) return DamageClass.Melee;
-				else if ( projectile.CountsAsClass(DamageClass.Ranged) && !projectile.CountsAsClass(DamageClass.Magic) && !projectile.CountsAsClass(DamageClass.Throwing) && !projectile.minion && !projectile.sentry ) return DamageClass.Ranged;
-				else if ( projectile.CountsAsClass(DamageClass.Magic) && !projectile.minion && !projectile.sentry ) return DamageClass.Magic;
-				else if ( projectile.CountsAsClass(DamageClass.Throwing) && !projectile.minion && !projectile.sentry ) return DamageClass.Throwing;
-				else if ( projectile.CountsAsClass(DamageClass.Summon)) return DamageClass.Summon;
-				else if ( projectile.CountsAsClass(DamageClass.SummonMeleeSpeed)) return DamageClass.Summon;
-				else return DamageClass.Generic;
+				if (projectile.CountsAsClass(dc))
+				{
+					backupdc = dc;
+				}
+			}
+			if (returndc != null) return returndc;
+			if (backupdc != null) return backupdc;
+
+			if ( fromsummon == 2 || projectile.sentry ) return ModContent.GetInstance<SentryClass>();
+			if ( fromsummon == 1 || projectile.minion ) return DamageClass.Summon;
+			else if ( projectile.CountsAsClass(DamageClass.Melee) && !projectile.CountsAsClass(DamageClass.Magic) && !projectile.CountsAsClass(DamageClass.Throwing) && !projectile.minion && !projectile.sentry ) return DamageClass.Melee;
+			else if ( projectile.CountsAsClass(DamageClass.Ranged) && !projectile.CountsAsClass(DamageClass.Magic) && !projectile.CountsAsClass(DamageClass.Throwing) && !projectile.minion && !projectile.sentry ) return DamageClass.Ranged;
+			else if ( projectile.CountsAsClass(DamageClass.Magic) && !projectile.minion && !projectile.sentry ) return DamageClass.Magic;
+			else if ( projectile.CountsAsClass(DamageClass.Throwing) && !projectile.minion && !projectile.sentry ) return DamageClass.Throwing;
+			else if ( projectile.CountsAsClass(DamageClass.Summon)) return DamageClass.Summon;
+			else if ( projectile.CountsAsClass(DamageClass.SummonMeleeSpeed)) return DamageClass.Summon;
+			else return DamageClass.Generic;
 			//}
 		}
 
