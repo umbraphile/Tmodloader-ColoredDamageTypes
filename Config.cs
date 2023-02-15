@@ -5,7 +5,7 @@ using System.Diagnostics;
 using Terraria;
 using Terraria.ModLoader.Config;
 using Terraria.ModLoader;
-
+using System.Text.Json.Serialization;
 
 namespace ColoredDamageTypes
 {
@@ -22,6 +22,54 @@ namespace ColoredDamageTypes
         {
 			Instance = this;
 		}*/
+
+		private int ColorPreset = 0;
+		
+		[Header("Presets")]
+
+
+		[Label("Celestial Pillar Colors")]
+		[Tooltip("Changes the vanilla damage and tooltip colors to match the celestial pillars' colors.")]
+		public bool PillarPreset
+		{
+			get => ColorPreset == 1;
+			set
+			{
+				if (value)
+				{
+					ColorPreset = 1;
+				}
+				else ColorPreset = 0;
+			}
+		}
+		public override void OnChanged()
+		{
+            if (ColorPreset == 1)
+			{
+				TooltipsConfig.Instance.VanillaTT.TooltipMelee = new Color(254, 121, 2, 255);
+				DamageConfig.Instance.VanillaDmg.MeleeDmg.MeleeDamage = new Color(254, 121, 2, 255);
+				DamageConfig.Instance.VanillaDmg.MeleeDmg.MeleeDamageCrit = new Color(253, 62, 3, 255);
+
+				TooltipsConfig.Instance.VanillaTT.TooltipRanged = new Color(34, 221, 151, 255);
+				DamageConfig.Instance.VanillaDmg.RangedDmg.RangedDamage = new Color(34, 221, 151, 255);
+				DamageConfig.Instance.VanillaDmg.RangedDmg.RangedDamageCrit = new Color(33, 160, 141, 255);
+
+				TooltipsConfig.Instance.VanillaTT.TooltipMagic = new Color(254, 126, 229, 255);
+				DamageConfig.Instance.VanillaDmg.MagicDmg.MagicDamage = new Color(254, 126, 229, 255);
+				DamageConfig.Instance.VanillaDmg.MagicDmg.MagicDamageCrit = new Color(255, 31, 174, 255);
+
+				TooltipsConfig.Instance.VanillaTT.TooltipSummon = new Color(136, 226, 255, 255);
+				DamageConfig.Instance.VanillaDmg.SummonDmg.SummonDamage = new Color(136, 226, 255, 255);
+				DamageConfig.Instance.VanillaDmg.SummonDmg.SummonDamageCrit = new Color(14, 154, 230, 255);
+
+				TooltipsConfig.Instance.VanillaTT.TooltipThrowing = new Color(161, 114, 74, 255);
+				DamageConfig.Instance.VanillaDmg.ThrowingDmg.ThrowingDamage = new Color(161, 114, 74, 255);
+				DamageConfig.Instance.VanillaDmg.ThrowingDmg.ThrowingDamageCrit = new Color(175, 165, 103, 255);
+
+				ColorPreset = 0;
+			}
+		}
+
 
 		[Header("Toggles")]
 
