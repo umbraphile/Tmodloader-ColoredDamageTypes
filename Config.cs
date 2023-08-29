@@ -93,7 +93,7 @@ namespace ColoredDamageTypes
 		[DefaultValue(true)]
 		public bool ShowMultiplayerDamageNumbers { get; set; }
 
-		[Header("Condense Damage Settings (EXPERIMENTAL)")]
+		[Header("Condense")]
 
 		[Label("Condense damage numbers (Leave on 0 to disable)")]
 		[Tooltip("Numbers will only show up after this number of hits, showing a total of previous hits.")]
@@ -105,7 +105,7 @@ namespace ColoredDamageTypes
 		[DefaultValue(true)]
 		public bool ShowCondenseDamageOnKill { get; set; }
 
-		[Header("Debug Settings. Ignore unless you know what you're doing.")]
+		[Header("Debug")]
 		[Label("Debug Mode")]
 		[Tooltip("Don't turn on.")]
 		[DefaultValue(false)]
@@ -134,7 +134,7 @@ namespace ColoredDamageTypes
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 		public static TooltipsConfig Instance = new TooltipsConfig();
 
-		[Header("Tooltip Colors")]
+		[Header("Colors")]
 		[Label("Vanilla")]
 		public Vanilla VanillaTT = new Vanilla();
 		public class Vanilla
@@ -190,7 +190,7 @@ namespace ColoredDamageTypes
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 		public static DamageConfig Instance = new DamageConfig();
 
-		[Header("Damage Colors")]
+		[Header("Colors")]
 		[Label("Vanilla")]
 		public Vanilla VanillaDmg = new Vanilla();
 		public class Vanilla
@@ -303,7 +303,7 @@ namespace ColoredDamageTypes
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 		public static zCrossModConfig Instance;
 
-		[Header("Mod Compatibility\nIf you change a setting here, you will need to \"Restore Defaults\" if any new damage types are added after.")]
+		[Header("ModCompat")]
 		[Label("Colors and damage types that were added by other mods:")]
 		[DefaultDictionaryKeyValue("Mod Name")]
 

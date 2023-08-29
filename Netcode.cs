@@ -31,26 +31,36 @@ namespace ColoredDamageTypes
 				if (Main.netMode == NetmodeID.MultiplayerClient)
 				{
 					NPC npc = Main.npc[(int)reader.ReadInt16()]; //npc being hit
-					int damage = ModNet.AllowVanillaClients ? reader.ReadInt16() : reader.ReadInt32(); //damage
-					float knockback = reader.ReadSingle(); // knockback
-					int hitdir = (reader.ReadByte() - 1); // hit direction
-					byte critbyte = reader.ReadByte();
-					bool crit = critbyte == 1;
+					int damage = reader.Read7BitEncodedInt();
+					NPC.HitInfo hit = default;
+					if (damage >= 0) {
+						hit = new NPC.HitInfo {
+							Damage = damage,
+							SourceDamage = reader.Read7BitEncodedInt(),
+							DamageType = DamageClassLoader.GetDamageClass(reader.Read7BitEncodedInt()),
+							HitDirection = reader.ReadSByte(),
+							Knockback = reader.ReadSingle(),
+						};
+						BitsByte flags = reader.ReadByte();
+						hit.Crit = flags[0];
+						hit.InstantKill = flags[1];
+						hit.HideCombatText = flags[2];
+					}
 					//fileStream.Seek(filestream.Position - 5, SeekOrigin.Begin);
 
 					if (Config.Instance.DebugModeMultiplayer)
 					{
 						ColoredDamageTypes.Log("IN Dmg: " + recentdmg_in + ", KB: " + recentkb_in + ", Crit: " + (recentcrit_in == 1));
-						ColoredDamageTypes.Log("Dmg: " + damage + ", KB: " + knockback + ", Crit: " + crit);
+						ColoredDamageTypes.Log("Dmg: " + damage + ", KB: " + hit.Knockback + ", Crit: " + hit.Crit);
 					}
 					//Main.NewText("Knockback: " + num86 + ", Direction: " + num87 + ", Crit: " + bb+" ?: "+crit);
-					if (damage > 0 && damage == recentdmg_in && knockback == recentkb_in && critbyte == recentcrit_in)
+					if (damage > 0 && damage == recentdmg_in && hit.Knockback == recentkb_in && hit.Crit == (recentcrit_in == 1))
 					{
 						if (Config.Instance.DebugModeMultiplayer)
 						{
 							ColoredDamageTypes.Log("Passed");
 						}
-						npc.StrikeNPC(damage, knockback, hitdir, crit, false, true);
+						npc.StrikeNPC(hit, fromNet: true);
 						int recent = -1;
 						for (int i = 99; i >= 0; i--)
 						{
@@ -97,7 +107,7 @@ namespace ColoredDamageTypes
 								intype = DamageTypes.DamageClasses[recentcolor_in - 8];
 							}
 
-							Color newcolor = DamageTypes.CheckDamageColor(intype, crit, sentrycheck) * 0.4f;
+							Color newcolor = DamageTypes.CheckDamageColor(intype, hit.Crit, sentrycheck) * 0.4f;
 							CombatText recentct = Main.combatText[recent];
 
 							recentct.color = newcolor;
