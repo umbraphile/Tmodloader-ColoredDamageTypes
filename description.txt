@@ -3,6 +3,9 @@ Colored damage types changes the tooltip and damage text of weapons to be colore
 Now has cross-mod support! For instructions on how to add your mod's damage type, check out the github:
 https://github.com/PvtFudgepants/Tmodloader-ColoredDamageText#cross-mod-compatibility
 
+v1.8.5
+-Ported to Tmodloader 1.4.4 (Thanks dariof4!).
+
 v1.8.4
 -Added a "preset" in the settings that changes the vanilla damage colors to match the pillar colors (and changes throwing a little to make it less orangey so it doesn't blend with melee pillar's colors)
 --Turn the setting on and click save. It'll reset it to "off", but the colors in game will have changed. Try it out!
