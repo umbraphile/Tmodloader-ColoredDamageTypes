@@ -18,7 +18,7 @@ namespace ColoredDamageTypes
 
 		//}
 
-		public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
+		public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
 		{
 			if (!Config.Instance.ChangeDamageColor) return;
 
@@ -39,9 +39,9 @@ namespace ColoredDamageTypes
 				Color newcolor;
 				DamageClass dmgtype = DamageTypes.GetType(item);
 
-				if(Config.Instance.DebugMode) ColoredDamageTypes.Log("HitByItem: "+damage+item.Name + "/" + item.type + ": " + item.shoot+" "+ dmgtype.ToString());
+				if(Config.Instance.DebugMode) ColoredDamageTypes.Log("HitByItem: "+damageDone+item.Name + "/" + item.type + ": " + item.shoot+" "+ dmgtype.ToString());
 
-				newcolor = DamageTypes.CheckDamageColor(dmgtype, crit, item.sentry);
+				newcolor = DamageTypes.CheckDamageColor(dmgtype, hit.Crit, item.sentry);
 
 				String dmgtypeString = dmgtype.ToString();
 				CombatText recentct = Main.combatText[recent];
@@ -56,7 +56,7 @@ namespace ColoredDamageTypes
 				if (!ColoredDamageTypes.condense_totals.ContainsKey(npcIDString)) ColoredDamageTypes.condense_totals.Add(npcIDString, new Dictionary<string, int[]>());
 				if (!ColoredDamageTypes.condense_totals[npcIDString].ContainsKey(dmgtypeString)) ColoredDamageTypes.condense_totals[npcIDString].Add(dmgtypeString, new int[] { 0, 0 });
 
-				ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][0] += damage;
+				ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][0] += damageDone;
 				if (Config.Instance.CondenseDamageHits > 0)
 				{
 					if (ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][1] < Config.Instance.CondenseDamageHits && npc.active)
@@ -81,7 +81,7 @@ namespace ColoredDamageTypes
 			}
 		}
 
-		public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
+		public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
 		{
 
 			if (!Config.Instance.ChangeDamageColor) return;
@@ -103,9 +103,9 @@ namespace ColoredDamageTypes
 				Color newcolor;
 				DamageClass dmgtype = DamageTypes.GetType(projectile);
 
-				if ( Config.Instance.DebugMode) ColoredDamageTypes.Log("HitByProjectile: " + damage+" "+projectile.Name+"/"+projectile.type+": "+dmgtype.ToString());
+				if ( Config.Instance.DebugMode) ColoredDamageTypes.Log("HitByProjectile: " + damageDone+" "+projectile.Name+"/"+projectile.type+": "+dmgtype.ToString());
 
-				newcolor = DamageTypes.CheckDamageColor(dmgtype, crit, projectile.sentry);
+				newcolor = DamageTypes.CheckDamageColor(dmgtype, hit.Crit, projectile.sentry);
 
 
 				String dmgtypeString = dmgtype.ToString();
@@ -121,7 +121,7 @@ namespace ColoredDamageTypes
 				if (!ColoredDamageTypes.condense_totals.ContainsKey(npcIDString)) ColoredDamageTypes.condense_totals.Add(npcIDString, new Dictionary<string, int[]>());
                 if (!ColoredDamageTypes.condense_totals[npcIDString].ContainsKey(dmgtypeString)) ColoredDamageTypes.condense_totals[npcIDString].Add(dmgtypeString, new int[] { 0, 0 });
 
-				ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][0] += damage;
+				ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][0] += damageDone;
 				if (Config.Instance.CondenseDamageHits > 0)
 				{
 					if (ColoredDamageTypes.condense_totals[npcIDString][dmgtypeString][1] < Config.Instance.CondenseDamageHits && npc.active)
@@ -146,7 +146,7 @@ namespace ColoredDamageTypes
 			}
 		}
 
-		public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit) {
+		public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers) {
 			//TODO: Make numbers correspond to netcode damage type
 			DamageClass dmgtype = DamageTypes.GetType(item);
 			int outint = 0;
@@ -162,14 +162,16 @@ namespace ColoredDamageTypes
 				int indexfound = DamageTypes.DamageClasses.FindIndex(dt => dt == dmgtype);
 				if (indexfound != -1) outint = 7 + indexfound + 1;
             }
+			modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) => {
 			Netcode.recentcolor_out = outint;
-			Netcode.recentdmg_out = damage;
-			Netcode.recentkb_out = knockback;
-			Netcode.recentcrit_out = (byte)(crit?1:0);
+			Netcode.recentdmg_out = hitInfo.Damage;
+			Netcode.recentkb_out = hitInfo.Knockback;
+			Netcode.recentcrit_out = (byte)(hitInfo.Crit?1:0);
+			};
 			
 		}
 
-		public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
 			//TODO: Make numbers correspond to netcode damage type
 			DamageClass dmgtype = DamageTypes.GetType(projectile);
@@ -186,10 +188,12 @@ namespace ColoredDamageTypes
 				int indexfound = DamageTypes.DamageClasses.FindIndex(dt => dt == dmgtype);
 				if (indexfound != -1) outint = 7 + indexfound + 1;
 			}
+			modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) => {
 			Netcode.recentcolor_out = outint;
-			Netcode.recentdmg_out = damage;
-			Netcode.recentkb_out = knockback;
-			Netcode.recentcrit_out = (byte)(crit?1:0);
+			Netcode.recentdmg_out = hitInfo.Damage;
+			Netcode.recentkb_out = hitInfo.Knockback;
+			Netcode.recentcrit_out = (byte)(hitInfo.Crit?1:0);
+			};
 		}
 	}
 }
