@@ -1,0 +1,278 @@
+Configs: {
+	Config: {
+		DisplayName: 彩色伤害提示模组基本设置
+
+		Headers: {
+			Presets: 基本设置
+			Toggles: 彩色伤害提示设置
+			Condense: 总伤害显示设置（开发中）
+			Debug: Debug选项，如果你不知道怎么用请直接忽略本选项。
+		}
+
+		PillarPreset: {
+			Label: 使用天界柱显示颜色（游戏内保存设置显示关闭但实际是生效的）
+			Tooltip: 开启后，不同职业武器的伤害提示会使用对应天界柱的颜色进行显示
+		}
+
+		ChangeTooltipColor: {
+			Label: 物品提示颜色显示
+			Tooltip: 当手持该物品时，允许模组改变部分物品提示文本的颜色
+		}
+
+		ChangeDamageColor: {
+			Label: 伤害数字颜色显示
+			Tooltip: 当攻击敌人时，允许模组改变伤害数字的颜色
+		}
+
+		ShowDamageNumbers: {
+			Label: 伤害数字显示
+			Tooltip: 显示/隐藏伤害数字
+		}
+
+		ShowMultiplayerDamageNumbers: {
+			Label: 多人模式下显示其他玩家的伤害数字
+			Tooltip: 显示/隐藏多人模式下显示其他玩家的伤害数字
+		}
+
+		CondenseDamageHits: {
+			Label: 总伤害显示（设为0禁用）
+			Tooltip: 只会在当前设置的攻击次数结束后，显示所有攻击造成的总伤害
+		}
+
+		ShowCondenseDamageOnKill: {
+			Label: 击杀后总伤害显示
+			Tooltip: 每次击杀敌人后自动显示总伤害
+		}
+
+		DebugMode: {
+			Label: Debug模式
+			Tooltip: 非开发者不要使用
+		}
+
+		DebugModeTooltips: {
+			Label: Debug模式物品提示
+			Tooltip: 非开发者不要使用
+		}
+
+		DebugModeFields: {
+			Label: Debug模式字段
+			Tooltip: 非开发者不要使用
+		}
+
+		DebugModeMultiplayer: {
+			Label: Debug模式（多人）
+			Tooltip: 非开发者不要使用
+		}
+	}
+
+	DamageConfig: {
+		DisplayName: 伤害显示颜色设置
+		Headers.Colors: 不同类型伤害显示颜色（RGB模式）
+
+		VanillaDmg: {
+			Label: 基础类型伤害
+			Tooltip: ""
+		}
+	}
+
+	Vanilla: {
+		Tooltip: ""
+
+		MeleeDmg: {
+			Label: 近战
+			Tooltip: ""
+		}
+
+		RangedDmg: {
+			Label: 远程
+			Tooltip: ""
+		}
+
+		MagicDmg: {
+			Label: 魔法
+			Tooltip: ""
+		}
+
+		ThrowingDmg: {
+			Label: 投掷
+			Tooltip: ""
+		}
+
+		SummonDmg: {
+			Label: 召唤
+			Tooltip: ""
+		}
+
+		SentryDmg: {
+			Label: 哨兵
+			Tooltip: ""
+		}
+
+		TooltipDefense: {
+			Label: 防御值
+			Tooltip: 盔甲防御值的显示颜色
+		}
+
+		TooltipMelee: {
+			Label: 近战
+			Tooltip: 近战武器伤害显示颜色
+		}
+
+		TooltipRanged: {
+			Label: 远程
+			Tooltip: 远程武器伤害显示颜色
+		}
+
+		TooltipMagic: {
+			Label: 魔法
+			Tooltip: 魔法武器伤害显示颜色
+		}
+
+		TooltipThrowing: {
+			Label: 投掷
+			Tooltip: 投掷武器伤害显示颜色
+		}
+
+		TooltipSummon: {
+			Label: 召唤
+			Tooltip: 召唤伤害显示颜色
+		}
+
+		TooltipSentry: {
+			Label: 哨兵
+			Tooltip: 哨兵伤害显示颜色
+		}
+	}
+
+	Melee: {
+		Tooltip: ""
+
+		MeleeDamage: {
+			Label: 普通攻击
+			Tooltip: 近战武器伤害显示颜色
+		}
+
+		MeleeDamageCrit: {
+			Label: 暴击攻击
+			Tooltip: 近战武器暴击伤害显示颜色
+		}
+	}
+
+	Ranged: {
+		Tooltip: ""
+
+		RangedDamage: {
+			Label: 普通攻击
+			Tooltip: 远程武器伤害显示颜色
+		}
+
+		RangedDamageCrit: {
+			Label: 暴击攻击
+			Tooltip: 远程武器暴击伤害显示颜色
+		}
+	}
+
+	Magic: {
+		Tooltip: ""
+
+		MagicDamage: {
+			Label: 普通攻击
+			Tooltip: 魔法武器伤害显示颜色
+		}
+
+		MagicDamageCrit: {
+			Label: 暴击攻击
+			Tooltip: 魔法武器暴击伤害显示颜色
+		}
+	}
+
+	Throwing: {
+		Tooltip: ""
+
+		ThrowingDamage: {
+			Label: 普通攻击
+			Tooltip: 投掷武器伤害显示颜色
+		}
+
+		ThrowingDamageCrit: {
+			Label: 暴击攻击
+			Tooltip: 投掷武器暴击伤害显示颜色
+		}
+	}
+
+	Summon: {
+		Tooltip: ""
+
+		SummonDamage: {
+			Label: 普通攻击
+			Tooltip: 召唤伤害显示颜色
+		}
+
+		SummonDamageCrit: {
+			Label: 暴击攻击
+			Tooltip: 召唤暴击伤害显示颜色（需要模组允许召唤暴击）
+		}
+	}
+
+	Sentry: {
+		Tooltip: ""
+
+		SentryDamage: {
+			Label: 普通攻击
+			Tooltip: 哨兵伤害显示颜色
+		}
+
+		SentryDamageCrit: {
+			Label: 暴击攻击
+			Tooltip: 哨兵暴击伤害显示颜色（需要模组允许哨兵暴击）
+		}
+	}
+
+	TooltipsConfig: {
+		DisplayName: 物品提示颜色设置
+		Headers.Colors: 物品提示显示颜色（RGB模式）
+
+		VanillaTT: {
+			Label: 基础物品提示
+			Tooltip: ""
+		}
+	}
+
+	zCrossModConfig: {
+		DisplayName: 跨模组兼容设置
+		Headers.ModCompat:
+			'''
+			跨模组兼容设置
+			如果你更改了此处的设置，在添加新的伤害类型后需要重新加载模组
+			'''
+
+		CrossModDamageConfig: {
+			Label: 由其它模组添加的颜色和伤害类型：
+			Tooltip: ""
+		}
+	}
+
+	DamageType: {
+		Tooltip: ""
+
+		dtname: {
+			Label: 伤害类型（仅设置内显示）
+			Tooltip: 只是方便在设置内查找，在此处修改不会带来任何改变。
+		}
+
+		TooltipColor: {
+			Label: 物品提示颜色
+			Tooltip: 物品提示颜色
+		}
+
+		DamageColor: {
+			Label: 伤害显示颜色伤害显示颜色
+			Tooltip: 伤害显示颜色
+		}
+
+		CritDamageColor: {
+			Label: 暴击伤害显示颜色
+			Tooltip: 暴击伤害显示颜色
+		}
+	}
+}
