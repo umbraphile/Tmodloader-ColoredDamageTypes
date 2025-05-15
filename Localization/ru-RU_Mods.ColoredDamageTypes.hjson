@@ -1,76 +1,76 @@
 Configs: {
 	Config: {
-		DisplayName: Config
+		DisplayName: Конфигурация
 
 		Headers: {
-			Presets: Presets
-			Toggles: Toggles
-			Condense: Condense Damage Settings (EXPERIMENTAL)
-			Debug: Debug Settings. Ignore unless you know what you're doing.
+			Presets: Предустановки
+			Toggles: Настройки
+			Condense: Настройки накопления урона (ЭКСПЕРИМЕНТАЛЬНЫЕ)
+			Debug: Настройки отладки. Не трогайте их если не знаете, что делаете.
 		}
 
 		PillarPreset: {
-			Label: Celestial Pillar Colors
-			Tooltip: Changes the vanilla damage and tooltip colors to match the celestial pillars' colors.
+			Label: Цвета небесных башен
+			Tooltip: Изменяет стандартные цвета урона в игре и в описаниях, чтобы соответствовать цвету небесных башен.
 		}
 
 		ChangeTooltipColor: {
-			Label: Change Tooltip Color
-			Tooltip: Allows the mod to change the color of some tooltip text when hovering over items.
+			Label: Изменять цвет в описаниях
+			Tooltip: Позволяет модификации менять текст некоторым частям описаний предметов.
 		}
 
 		ChangeDamageColor: {
-			Label: Change Damage Color
-			Tooltip: Allows the mod to change the color of damage numbers when hitting enemies.
+			Label: Изменять цвет урона
+			Tooltip: Позволяет модификации менять цвет всплывающего над врагами урона.
 		}
 
 		ShowDamageNumbers: {
-			Label: Show damage numbers
-			Tooltip: Show/Hide all damage numbers
+			Label: Показывать значения урона
+			Tooltip: Показывать/скрывать весь всплывающий урон.
 		}
 
 		ShowMultiplayerDamageNumbers: {
-			Label: Show other players damage numbers in multiplayer
-			Tooltip: Show/Hide other players damage numbers in multiplayer
+			Label: Показывать урон других игроков в многопользовательской игре
+			Tooltip: Показывать/скрывать всплывающий урон других игроков.
 		}
 
 		CondenseDamageHits: {
-			Label: Condense damage numbers (Leave on 0 to disable)
-			Tooltip: Numbers will only show up after this number of hits, showing a total of previous hits.
+			Label: Накапливать значения урона (Оставьте "0", чтобы было выключено)
+			Tooltip: Всплывающий урон будет появляться только спустя какое-то число ударов, показывая суммарный урон.
 		}
 
 		ShowCondenseDamageOnKill: {
-			Label: Always show condensed damage on kill
-			Tooltip: Makes damage number always show up on a kill.
+			Label: Всегда показывать накопленный урон при убийстве
+			Tooltip: Заставляет накопленный урон всплывать при каждом убийстве.
 		}
 
 		DebugMode: {
-			Label: Debug Mode
-			Tooltip: Don't turn on.
+			Label: Режим отладки
+			Tooltip: Не трогать.
 		}
 
 		DebugModeTooltips: {
-			Label: Debug Mode Tooltips
-			Tooltip: Don't turn on.
+			Label: Режим отладки описаний
+			Tooltip: Не трогать.
 		}
 
 		DebugModeFields: {
-			Label: Debug Mode Fields
-			Tooltip: Don't turn on.
+			Label: Режим отладки полей
+			Tooltip: Не трогать.
 		}
 
 		DebugModeMultiplayer: {
-			Label: Debug Mode (Multiplayer)
-			Tooltip: Don't turn on.
+			Label: Режим отладки многопользовательской игры
+			Tooltip: Не трогать.
 		}
 	}
 
 	DamageConfig: {
-		DisplayName: Damage Config
-		Headers.Colors: Damage Colors
+		DisplayName: Конфигурация урона
+		Headers.Colors: Цвета урона
 
 		VanillaDmg: {
-			Label: Vanilla
+			Label: Стандартный
 			Tooltip: ""
 		}
 	}
@@ -79,68 +79,68 @@ Configs: {
 		Tooltip: ""
 
 		MeleeDmg: {
-			Label: Melee
+			Label: Урон ближнего боя
 			Tooltip: ""
 		}
 
 		RangedDmg: {
-			Label: Ranged
+			Label: Стрелковый урон
 			Tooltip: ""
 		}
 
 		MagicDmg: {
-			Label: Magic
+			Label: Магический урон
 			Tooltip: ""
 		}
 
 		ThrowingDmg: {
-			Label: Throwing
+			Label: Метательный урон
 			Tooltip: ""
 		}
 
 		SummonDmg: {
-			Label: Summon
+			Label: Урон призываемого существа
 			Tooltip: ""
 		}
 
 		SentryDmg: {
-			Label: Sentry
+			Label: Урон стражей
 			Tooltip: ""
 		}
 
 		TooltipDefense: {
-			Label: Defense
-			Tooltip: Color of the defense tooltip on armor
+			Label: Защита
+			Tooltip: Цвет описания защиты у брони
 		}
 
 		TooltipMelee: {
-			Label: Melee
-			Tooltip: Color of the damage tooltip for Melee weapons
+			Label: Урон ближнего боя
+			Tooltip: Цвет описания урона ближнего боя
 		}
 
 		TooltipRanged: {
-			Label: Ranged
-			Tooltip: Color of the damage tooltip for Ranged weapons
+			Label: Стрелковый урон
+			Tooltip: Цвет описания стрелкового урона
 		}
 
 		TooltipMagic: {
-			Label: Magic
-			Tooltip: Color of the damage tooltip for Magic weapons
+			Label: Магический урон
+			Tooltip: Цвет описания магического урона
 		}
 
 		TooltipThrowing: {
-			Label: Throwing
-			Tooltip: Color of the damage tooltip for Throwing weapons
+			Label: Метательный урон
+			Tooltip: Цвет описания метательного урона
 		}
 
 		TooltipSummon: {
-			Label: Summon
-			Tooltip: Color of the damage tooltip for Summon weapons
+			Label: Урон призываемого существа
+			Tooltip: Цвет описания урона призываемого существа
 		}
 
 		TooltipSentry: {
-			Label: Sentry
-			Tooltip: Color of the damage tooltip for Sentry weapons
+			Label: Урон стражей
+			Tooltip: Цвет описания урона стражей
 		}
 	}
 
@@ -148,13 +148,13 @@ Configs: {
 		Tooltip: ""
 
 		MeleeDamage: {
-			Label: Normal
-			Tooltip: Color of the damage numbers for Melee weapons
+			Label: Обычный
+			Tooltip: Цвет всплываемых значений урона ближнего боя
 		}
 
 		MeleeDamageCrit: {
-			Label: Crit
-			Tooltip: Color of the crit damage numbers for Melee weapons
+			Label: Критический
+			Tooltip: Цвет всплываемых значений критического урона ближнего боя
 		}
 	}
 
@@ -162,13 +162,13 @@ Configs: {
 		Tooltip: ""
 
 		RangedDamage: {
-			Label: Normal
-			Tooltip: Color of the damage numbers for Ranged weapons
+			Label: Обычный
+			Tooltip: Цвет всплываемых значений стрелкового урона
 		}
 
 		RangedDamageCrit: {
-			Label: Crit
-			Tooltip: Color of the crit damage numbers for Ranged weapons
+			Label: Критический
+			Tooltip: Цвет всплываемых значений критического стрелкового урона
 		}
 	}
 
@@ -176,13 +176,13 @@ Configs: {
 		Tooltip: ""
 
 		MagicDamage: {
-			Label: Normal
-			Tooltip: Color of the damage numbers for Magic weapons
+			Label: Обычный
+			Tooltip: Цвет всплываемых значений магического урона
 		}
 
 		MagicDamageCrit: {
-			Label: Crit
-			Tooltip: Color of the crit damage numbers for Magic weapons
+			Label: Критический
+			Tooltip: Цвет всплываемых значений критического магического урона
 		}
 	}
 
@@ -190,13 +190,13 @@ Configs: {
 		Tooltip: ""
 
 		ThrowingDamage: {
-			Label: Normal
-			Tooltip: Color of the damage numbers for Throwing weapons
+			Label: Обычный
+			Tooltip: Цвет всплываемых значений метательного урона
 		}
 
 		ThrowingDamageCrit: {
-			Label: Crit
-			Tooltip: Color of the crit damage numbers for Throwing weapons
+			Label: Критический
+			Tooltip: Цвет всплываемых значений критического метательного урона
 		}
 	}
 
@@ -204,13 +204,13 @@ Configs: {
 		Tooltip: ""
 
 		SummonDamage: {
-			Label: Normal
-			Tooltip: Color of the damage numbers for Summon weapons
+			Label: Обычный
+			Tooltip: Цвет всплываемых значений урона призываемых существ
 		}
 
 		SummonDamageCrit: {
-			Label: Crit
-			Tooltip: Color of the crit damage numbers for Summon weapons (requires mod to actually allow summons to crit)
+			Label: Критический
+			Tooltip: Цвет всплываемых значений критического урона призываемых существ (требует модификации, чтобы существа могли наносить крит. урон)
 		}
 	}
 
@@ -218,36 +218,36 @@ Configs: {
 		Tooltip: ""
 
 		SentryDamage: {
-			Label: Normal
-			Tooltip: Color of the damage numbers for Sentry weapons
+			Label: Обычный
+			Tooltip: Цвет всплываемых значений урона стражей
 		}
 
 		SentryDamageCrit: {
-			Label: Crit
-			Tooltip: Color of the crit damage numbers for Sentry weapons (requires mod to actually allow sentries to crit)
+			Label: Критический
+			Tooltip: Цвет всплываемых значений критического урона стражей (требует модификации, чтобы стражи могли наносить крит. урон)
 		}
 	}
 
 	TooltipsConfig: {
-		DisplayName: Tooltips Config
-		Headers.Colors: Tooltip Colors
+		DisplayName: Настройка описаний
+		Headers.Colors: Цвет описаний
 
 		VanillaTT: {
-			Label: Vanilla
+			Label: Стандартный
 			Tooltip: ""
 		}
 	}
 
 	zCrossModConfig: {
-		DisplayName: Mod Compatbility Config
+		DisplayName: Настройка совместимости с модификациями
 		Headers.ModCompat:
 			'''
-			Mod Compatibility
-			If you change a setting here, you will need to "Restore Defaults" if any new damage types are added after.
+			Совместимость с модификациями
+			Если вы здесь что-то меняете, вам потребуется сбросить всё до стандартных настроек при добавлении новых типов урона.
 			'''
 
 		CrossModDamageConfig: {
-			Label: Colors and damage types that were added by other mods:
+			Label: Добавленные цвета и типы уронов:
 			Tooltip: ""
 		}
 	}
@@ -256,23 +256,23 @@ Configs: {
 		Tooltip: ""
 
 		dtname: {
-			Label: Damage Type (For reference only)
-			Tooltip: For reference only. Changing this will do nothing.
+			Label: Тип урона (Только для справки)
+			Tooltip: Для справки. Ничего не меняет.
 		}
 
 		TooltipColor: {
-			Label: Tooltip Color
-			Tooltip: Tooltip color
+			Label: Цвет описания
+			Tooltip: Цвет описания
 		}
 
 		DamageColor: {
-			Label: Damage Color
-			Tooltip: Damage color
+			Label: Цвет обычного урона
+			Tooltip: Цвет обычного урона
 		}
 
 		CritDamageColor: {
-			Label: Crit Damage Color
-			Tooltip: Crit Damage color
+			Label: Цвет критического урона
+			Tooltip: Цвет критического урона
 		}
 	}
 }
